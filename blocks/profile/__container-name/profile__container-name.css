@@ -13,3 +13,10 @@
     align-items: baseline;
   }
 }
+
+@media screen and (min-width: 1024px) {
+  .profile__container-name {
+    padding-left: 0;
+    justify-content: flex-start;
+  }
+}
