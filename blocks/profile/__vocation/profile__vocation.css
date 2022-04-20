@@ -8,3 +8,10 @@
   text-align: center;
   color: #FFFFFF;
 }
+
+@media screen and (min-width: 768px) {
+  .profile__vocation {
+    font-size: 18px;
+    line-height: 1.22;
+  }
+}
