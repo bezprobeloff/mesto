@@ -7,4 +7,10 @@
   background-image: url(../../../images/heart.svg);
   background-repeat: no-repeat;
   background-size: cover;
+  transition: opacity .6s;
+  cursor: pointer;
+}
+
+.card__button-like:hover {
+  opacity: .5;
 }

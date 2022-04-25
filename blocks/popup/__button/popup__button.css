@@ -3,13 +3,15 @@
   height: 46px;
   border: 0;
   padding: 0;
-  background: #000000;
+  background-color: #000000;
   border-radius: 2px;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
   text-align: center;
   color: #FFFFFF;
+  cursor: pointer;
+  transition: background-color .6s;
 }
 
 @media screen and (min-width: 768px) {
@@ -17,4 +19,8 @@
     font-size: 18px;
     line-height: 1.22;
   }
+}
+
+.popup__button:hover {
+  background-color: rgba(0, 0, 0, .8);
 }
