@@ -12,58 +12,58 @@
     <img src="./images/logo.svg" class="header__logo" alt="Лого Mesto">
   </header>
   <main class="content">
-    <section class="profile">
+    <section class="profile" aria-label="Профиль пользователя">
       <img src="./images/avatar.jpg" alt="Аватар пользователя" class="profile__avatar">
       <div class="profile__info">
         <div class="profile__container-name">
           <p class="profile__name">Жак-Ив Кусто</p>
-          <button class="profile__edit-button"></button>
+          <button class="profile__button-edit"></button>
         </div>
         <p class="profile__vocation">Исследователь океана</p>
       </div>
-      <button class="profile__add-button"></button>
+      <button class="profile__button-add"></button>
     </section>
-    <article class="cards">
-      <article class="card">
+    <article class="cards" aria-label="Фотокарточки">
+      <article class="card" aria-label="Фотокарточка">
         <img src="./images/card-karachevsk.jpg" class="card__image" alt="Древнее строение">
         <div class="card__info">
           <p class="card__name">Карачаево-Черкесия</p>
-          <button class="card__like-button"></button>
+          <button class="card__button-like"></button>
         </div>
       </article>
-      <article class="card">
+      <article class="card" aria-label="Фотокарточка">
         <img src="./images/card-elbrus.jpg" class="card__image" alt="Гора Эльбрус">
         <div class="card__info">
           <p class="card__name">Гора Эльбрус</p>
-          <button class="card__like-button"></button>
+          <button class="card__button-like"></button>
         </div>
       </article>
-      <article class="card">
+      <article class="card" aria-label="Фотокарточка">
         <img src="./images/card-dombai.jpg" class="card__image" alt="Горный лес">
         <div class="card__info">
           <p class="card__name">Домбай</p>
-          <button class="card__like-button"></button>
+          <button class="card__button-like"></button>
         </div>
       </article>
-      <article class="card">
+      <article class="card" aria-label="Фотокарточка">
         <img src="./images/card-elbrus.jpg" class="card__image" alt="Гора Эльбрус">
         <div class="card__info">
           <p class="card__name">Гора Эльбрус</p>
-          <button class="card__like-button"></button>
+          <button class="card__button-like"></button>
         </div>
       </article>
-      <article class="card">
+      <article class="card" aria-label="Фотокарточка">
         <img src="./images/card-dombai.jpg" class="card__image" alt="Горный лес">
         <div class="card__info">
           <p class="card__name">Домбай</p>
-          <button class="card__like-button"></button>
+          <button class="card__button-like"></button>
         </div>
       </article>
-      <article class="card">
+      <article class="card" aria-label="Фотокарточка">
         <img src="./images/card-karachevsk.jpg" class="card__image" alt="Древнее строение">
         <div class="card__info">
           <p class="card__name">Карачаево-Черкесия</p>
-          <button class="card__like-button"></button>
+          <button class="card__button-like"></button>
         </div>
       </article>
     </article>
@@ -71,5 +71,16 @@
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
+  <section class="popup">
+    <form class="popup__form" action="form" method="post">
+      <button class="popup__button-close"></button>
+      <p class="popup__title">Редактировать профиль</p>
+      <fieldset class="popup__fieldset">
+        <input class="popup__input" type="text" name="name" id="userName" placeholder="Введите имя">
+        <input class="popup__input" type="text" name="vocation" id="userVocation" placeholder="Введите профессию">
+      </fieldset>
+      <button class="popup__button" type="submit">Сохранить</button>
+    </form>
+  </section>
 </body>
 </html>
