@@ -24,4 +24,4 @@
 
 **Где посмотреть**
 
-А вот здесь &rarr; [Путешествие по России](https://bezprobeloff.github.io/mesto/index.html).
+А вот здесь &rarr; [Mesto Russia](https://bezprobeloff.github.io/mesto/index.html).
