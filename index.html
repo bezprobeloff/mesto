@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mesto</title>
+  <title>Место Россия</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
@@ -16,73 +16,71 @@
       <div class="profile__info">
         <div class="profile__container-name">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__button-edit"></button>
+          <button class="profile__button-edit" type="button" aria-label="Редактировать"></button>
         </div>
         <p class="profile__job">Исследователь океана</p>
       </div>
-      <button class="profile__button-add"></button>
+      <button class="profile__button-add" type="button" aria-label="Добавить"></button>
     </section>
-    <article class="cards" aria-label="Фотокарточки">
+    <section class="cards" aria-label="Фотокарточки">
       <article class="card">
         <img src="./images/card-karachevsk.jpg" class="card__image" alt="Древнее строение">
         <div class="card__info">
           <h2 class="card__name">Карачаево-Черкесия</h2>
-          <button class="card__button-like card__button-like_activated"></button>
+          <button class="card__button-like card__button-like_activated" type="button" aria-label="Лайк"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/card-elbrus.jpg" class="card__image" alt="Гора Эльбрус">
         <div class="card__info">
           <h2 class="card__name">Гора Эльбрус</h2>
-          <button class="card__button-like"></button>
+          <button class="card__button-like" type="button" aria-label="Лайк"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/card-dombai.jpg" class="card__image" alt="Горный лес">
         <div class="card__info">
           <h2 class="card__name">Домбай</h2>
-          <button class="card__button-like"></button>
+          <button class="card__button-like" type="button" aria-label="Лайк"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/card-elbrus.jpg" class="card__image" alt="Гора Эльбрус">
         <div class="card__info">
           <h2 class="card__name">Гора Эльбрус</h2>
-          <button class="card__button-like"></button>
+          <button class="card__button-like" type="button" aria-label="Лайк"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/card-dombai.jpg" class="card__image" alt="Горный лес">
         <div class="card__info">
           <h2 class="card__name">Домбай</h2>
-          <button class="card__button-like"></button>
+          <button class="card__button-like" type="button" aria-label="Лайк"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/card-karachevsk.jpg" class="card__image" alt="Древнее строение">
         <div class="card__info">
           <h2 class="card__name">Карачаево-Черкесия</h2>
-          <button class="card__button-like"></button>
+          <button class="card__button-like" type="button" aria-label="Лайк"></button>
         </div>
       </article>
-    </article>
+    </section>
   </main>
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
-  <section class="popup">
+  <div class="popup">
     <div class="popup__container">
-      <button class="popup__button-close"></button>
-      <form class="popup__form" action="form" method="post">
+      <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
+      <form class="popup__form" name="formEditProfile" action="form" method="post">
         <h3 class="popup__title">Редактировать профиль</h3>
-        <fieldset class="popup__fieldset">
-          <input class="popup__input" type="text" name="name" id="userName" placeholder="Имя">
-          <input class="popup__input" type="text" name="job" id="userJob" placeholder="О себе">
-        </fieldset>
+        <input class="popup__input popup__input_type_user-name" type="text" name="name" id="userName" placeholder="Имя">
+        <input class="popup__input popup__input_type_user-job" type="text" name="job" id="userJob" placeholder="О себе">
         <button class="popup__button" type="submit">Сохранить</button>
       </form>
     </div>
-  </section>
+  </div>
   <script src="./scripts/index.js"></script>
 </body>
 </html>

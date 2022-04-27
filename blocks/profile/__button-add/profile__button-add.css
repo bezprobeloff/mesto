@@ -3,6 +3,7 @@
   height: 50px;
   padding: 0;
   border: 2px solid #FFFFFF;
+  border-radius: 2px;
   background-image: url(../../../images/plus.svg);
   background-repeat: no-repeat;
   background-size: 16px 16px;
