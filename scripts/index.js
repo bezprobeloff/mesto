@@ -1,3 +1,34 @@
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+const templateCard = document.querySelector('.template-card').content;
+
+const cardsSection = document.querySelector('.cards');
+
 const profileSection = document.querySelector('.profile');
 const profileName = profileSection.querySelector('.profile__name');
 const profileJob = profileSection.querySelector('.profile__job');
@@ -24,7 +55,7 @@ const onButtonEdit = () => {
   togglePopup(popupProfile);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-}
+};
 
 const onButtonAdd = () => togglePopup(popupAddCard);
 
@@ -37,11 +68,20 @@ const onFormSubmitProfile = evt => {
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
     togglePopup(popupProfile);
-}
+};
+
+const renderCards = (cards) => {
+  cards.forEach((card) => {
+    const cardElement = templateCard.querySelector('.card').cloneNode(true);
+    cardElement.querySelector('.card__image').src = card.link;
+    cardElement.querySelector('.card__name').textContent = card.name;
+    cardsSection.append(cardElement);
+  });
+};
 
 // реакции на кнопки открытия попапов
 profileEditButton.addEventListener('click', onButtonEdit);
-profileAddButton.addEventListener('click', onButtonAdd)
+profileAddButton.addEventListener('click', onButtonAdd);
 
 // реакции на кнопки закрытия попапов
 buttonClosePopupProfile.addEventListener('click', onButtonClosePopupProfile);
@@ -49,3 +89,5 @@ buttonClosePopupAddCard.addEventListener('click', onButtonClosePopupAddCard);
 
 // отправка формы
 formProfile.addEventListener('submit', onFormSubmitProfile);
+
+renderCards(initialCards);
