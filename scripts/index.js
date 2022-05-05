@@ -55,46 +55,43 @@ const buttonClosePopupViewImage = popupViewImage.querySelector('.popup__button-c
 const viewImageElement = popupViewImage.querySelector('.popup__view-image');
 const imageDescription = popupViewImage.querySelector('.popup__description');
 
-const togglePopup = popup => popup.classList.toggle('popup_opened');
+const openPopup = popup => popup.classList.add('popup_opened');
+
+const closePopup = popup => popup.classList.remove('popup_opened');
 
 const onButtonEdit = () => {
-  togglePopup(popupProfile);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  openPopup(popupProfile);
 };
 
 const onButtonAdd = () => {
   formAddCard.reset();
-  togglePopup(popupAddCard);
+  openPopup(popupAddCard);
 };
 
-const onButtonClosePopupProfile = () => togglePopup(popupProfile);
+const onButtonClosePopupProfile = () => closePopup(popupProfile);
 
-const onButtonClosePopupViewImage = () => togglePopup(popupViewImage);
+const onButtonClosePopupViewImage = () => closePopup(popupViewImage);
 
-const onButtonClosePopupAddCard = () => {
-  formAddCard.reset();
-  togglePopup(popupAddCard);
-};
+const onButtonClosePopupAddCard = () => closePopup(popupAddCard);
 
 const onFormSubmitProfile = evt => {
-    evt.preventDefault();
-    profileName.textContent = nameInput.value;
-    profileJob.textContent = jobInput.value;
-    togglePopup(popupProfile);
+  evt.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+  closePopup(popupProfile);
 };
 
 const onButtonLike = (evt) => {
   evt.target.classList.toggle('card__button-like_activated');
 };
 
-const onViewImage = (evt) => {
-  const card = evt.target.closest('.card');
-  const linkImage = evt.target;
-  const nameCard = card.querySelector('.card__name');
-  viewImageElement.src = linkImage.src;
-  imageDescription.textContent = nameCard.textContent;
-  togglePopup(popupViewImage);
+const onViewImage = (card) => {
+  viewImageElement.src = card.link;
+  viewImageElement.alt = card.name;
+  imageDescription.textContent = card.name;
+  openPopup(popupViewImage);
 };
 
 const onButtonRemoveCard = (evt) => {
@@ -102,7 +99,7 @@ const onButtonRemoveCard = (evt) => {
   card.remove();
 };
 
-const renderCard = (card) => {
+const createCard = (card) => {
   const cardElement = templateCard.querySelector('.card').cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
   const cardName = cardElement.querySelector('.card__name');
@@ -110,11 +107,17 @@ const renderCard = (card) => {
   const cardButtonLike = cardElement.querySelector('.card__button-like');
 
   cardImage.src = card.link;
-  cardImage.addEventListener('click', onViewImage);
+  cardImage.alt = card.name;
+  cardImage.addEventListener('click', () => onViewImage(card));
   cardName.textContent = card.name;
   cardButtonRemove.addEventListener('click', onButtonRemoveCard);
   cardButtonLike.addEventListener('click', onButtonLike);
-  cardsSection.prepend(cardElement);
+
+  return cardElement;
+};
+
+const renderCard = (card) => {
+  cardsSection.prepend(createCard(card));
 };
 
 const renderCards = (cards) => {
@@ -127,8 +130,7 @@ const onFormSubmitAddCard = evt => {
   card.name = nameCardInput.value;
   card.link = linkCardInput.value;
   renderCard(card);
-  togglePopup(popupAddCard);
-  formAddCard.reset();
+  closePopup(popupAddCard);
 };
 
 // реакции на кнопки открытия попапов
