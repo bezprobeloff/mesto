@@ -49,6 +49,12 @@ const formAddCard = popupAddCard.querySelector('.popup__form');
 const nameCardInput = formAddCard.querySelector(".popup__input_type_card-name");
 const linkCardInput = formAddCard.querySelector(".popup__input_type_card-link");
 
+// попап просмотра фото
+const popupViewImage = document.querySelector('.popup_type_view-image');
+const buttonClosePopupViewImage = popupViewImage.querySelector('.popup__button-close');
+const viewImageElement = popupViewImage.querySelector('.popup__view-image');
+const imageDescription = popupViewImage.querySelector('.popup__description');
+
 const togglePopup = popup => popup.classList.toggle('popup_opened');
 
 const onButtonEdit = () => {
@@ -63,6 +69,8 @@ const onButtonAdd = () => {
 };
 
 const onButtonClosePopupProfile = () => togglePopup(popupProfile);
+
+const onButtonClosePopupViewImage = () => togglePopup(popupViewImage);
 
 const onButtonClosePopupAddCard = () => {
   formAddCard.reset();
@@ -80,6 +88,15 @@ const onButtonLike = (evt) => {
   evt.target.classList.toggle('card__button-like_activated');
 };
 
+const onViewImage = (evt) => {
+  const card = evt.target.closest('.card');
+  const linkImage = evt.target;
+  const nameCard = card.querySelector('.card__name');
+  viewImageElement.src = linkImage.src;
+  imageDescription.textContent = nameCard.textContent;
+  togglePopup(popupViewImage);
+};
+
 const onButtonRemoveCard = (evt) => {
   const card = evt.target.closest('.card');
   card.remove();
@@ -87,12 +104,16 @@ const onButtonRemoveCard = (evt) => {
 
 const renderCard = (card) => {
   const cardElement = templateCard.querySelector('.card').cloneNode(true);
-  cardElement.querySelector('.card__image').src = card.link;
-  cardElement.querySelector('.card__name').textContent = card.name;
-  cardElement.querySelector('.card__button-remove')
-      .addEventListener('click', onButtonRemoveCard);
-  cardElement.querySelector('.card__button-like')
-      .addEventListener('click', onButtonLike);
+  const cardImage = cardElement.querySelector('.card__image');
+  const cardName = cardElement.querySelector('.card__name');
+  const cardButtonRemove = cardElement.querySelector('.card__button-remove');
+  const cardButtonLike = cardElement.querySelector('.card__button-like');
+
+  cardImage.src = card.link;
+  cardImage.addEventListener('click', onViewImage);
+  cardName.textContent = card.name;
+  cardButtonRemove.addEventListener('click', onButtonRemoveCard);
+  cardButtonLike.addEventListener('click', onButtonLike);
   cardsSection.prepend(cardElement);
 };
 
@@ -117,6 +138,7 @@ profileAddButton.addEventListener('click', onButtonAdd);
 // реакции на кнопки закрытия попапов
 buttonClosePopupProfile.addEventListener('click', onButtonClosePopupProfile);
 buttonClosePopupAddCard.addEventListener('click', onButtonClosePopupAddCard);
+buttonClosePopupViewImage.addEventListener('click', onButtonClosePopupViewImage);
 
 // отправка формы
 formProfile.addEventListener('submit', onFormSubmitProfile);
