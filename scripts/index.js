@@ -80,10 +80,17 @@ const onButtonLike = (evt) => {
   evt.target.classList.toggle('card__button-like_activated');
 };
 
+const onButtonRemoveCard = (evt) => {
+  const card = evt.target.closest('.card');
+  card.remove();
+};
+
 const renderCard = (card) => {
   const cardElement = templateCard.querySelector('.card').cloneNode(true);
   cardElement.querySelector('.card__image').src = card.link;
   cardElement.querySelector('.card__name').textContent = card.name;
+  cardElement.querySelector('.card__button-remove')
+      .addEventListener('click', onButtonRemoveCard);
   cardElement.querySelector('.card__button-like')
       .addEventListener('click', onButtonLike);
   cardsSection.prepend(cardElement);
