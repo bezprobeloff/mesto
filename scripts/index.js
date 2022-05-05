@@ -57,11 +57,17 @@ const onButtonEdit = () => {
   jobInput.value = profileJob.textContent;
 };
 
-const onButtonAdd = () => togglePopup(popupAddCard);
+const onButtonAdd = () => {
+  formAddCard.reset();
+  togglePopup(popupAddCard);
+};
 
 const onButtonClosePopupProfile = () => togglePopup(popupProfile);
 
-const onButtonClosePopupAddCard = () => togglePopup(popupAddCard);
+const onButtonClosePopupAddCard = () => {
+  formAddCard.reset();
+  togglePopup(popupAddCard);
+};
 
 const onFormSubmitProfile = evt => {
     evt.preventDefault();
@@ -70,13 +76,25 @@ const onFormSubmitProfile = evt => {
     togglePopup(popupProfile);
 };
 
+const renderCard = (card) => {
+  const cardElement = templateCard.querySelector('.card').cloneNode(true);
+  cardElement.querySelector('.card__image').src = card.link;
+  cardElement.querySelector('.card__name').textContent = card.name;
+  cardsSection.prepend(cardElement);
+};
+
 const renderCards = (cards) => {
-  cards.forEach((card) => {
-    const cardElement = templateCard.querySelector('.card').cloneNode(true);
-    cardElement.querySelector('.card__image').src = card.link;
-    cardElement.querySelector('.card__name').textContent = card.name;
-    cardsSection.append(cardElement);
-  });
+  cards.forEach(card => renderCard(card));
+};
+
+const onFormSubmitAddCard = evt => {
+  evt.preventDefault();
+  const card = {};
+  card.name = nameCardInput.value;
+  card.link = linkCardInput.value;
+  renderCard(card);
+  togglePopup(popupAddCard);
+  formAddCard.reset();
 };
 
 // реакции на кнопки открытия попапов
@@ -89,5 +107,6 @@ buttonClosePopupAddCard.addEventListener('click', onButtonClosePopupAddCard);
 
 // отправка формы
 formProfile.addEventListener('submit', onFormSubmitProfile);
+formAddCard.addEventListener('submit', onFormSubmitAddCard);
 
 renderCards(initialCards);
