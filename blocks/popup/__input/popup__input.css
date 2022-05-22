@@ -1,6 +1,5 @@
 .popup__input {
   width: 100%;
-  margin-top: 20px;
   padding: 10px 0;
   outline: none;
   border: 0;
@@ -9,4 +8,8 @@
   font-size: 14px;
   line-height: 1.21;
   color: #000000;
+}
+
+.popup__input:invalid {
+  border-bottom: 1px solid #FF0000;
 }
