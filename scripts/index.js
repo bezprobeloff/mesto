@@ -59,6 +59,25 @@ const openPopup = popup => popup.classList.add('popup_opened');
 
 const closePopup = popup => popup.classList.remove('popup_opened');
 
+const onKeyEscClosePopup = evt => {
+  if (evt.key !== 'Escape') return;
+
+  const openedPopups = Array.from(document.querySelectorAll('.popup_opened'));
+
+  openedPopups.forEach(popup => {
+    closePopup(popup);
+  });
+
+};
+
+const onOverlayClosePopup = evt => {
+  const overlayPopup = evt.target;
+
+  if (!overlayPopup.classList.contains('popup_opened')) return;
+
+  closePopup(overlayPopup);
+};
+
 const onButtonEdit = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
@@ -167,6 +186,12 @@ document.addEventListener('click', onButtonRemoveCard);
 
 // реакция на лайк
 document.addEventListener('click', onButtonLike);
+
+// закрытие попапа по Esc
+document.addEventListener('keydown', onKeyEscClosePopup);
+
+// закрытие попапа по клику вне попапа
+document.addEventListener('click', onOverlayClosePopup);
 
 // отправка формы
 formProfile.addEventListener('submit', onFormSubmitProfile);
