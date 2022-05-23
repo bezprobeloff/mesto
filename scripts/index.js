@@ -70,11 +70,19 @@ const onButtonAdd = () => {
   openPopup(popupAddCard);
 };
 
-const onButtonClosePopupProfile = () => closePopup(popupProfile);
+const onButtonClosePopup = evt => {
+  const buttonClosePopup = evt.target;
 
-const onButtonClosePopupViewImage = () => closePopup(popupViewImage);
+  if (!buttonClosePopup.classList.contains('popup__button-close')) {
+    return;
+  }
 
-const onButtonClosePopupAddCard = () => closePopup(popupAddCard);
+  const popup = buttonClosePopup.closest('.popup');
+
+  if (popup) {
+    popup.classList.remove('popup_opened');
+  }
+};
 
 const onFormSubmitProfile = evt => {
   evt.preventDefault();
@@ -83,19 +91,35 @@ const onFormSubmitProfile = evt => {
   closePopup(popupProfile);
 };
 
-const onButtonLike = (evt) => {
-  evt.target.classList.toggle('card__button-like_activated');
+const onButtonLike = evt => {
+  const buttonLike = evt.target;
+
+  if (!buttonLike.classList.contains('card__button-like')) return;
+
+  buttonLike.classList.toggle('card__button-like_activated');
 };
 
-const onViewImage = (card) => {
+const onViewImage = evt => {
+  const cardImage = evt.target;
+  const card = {};
+
+  if (!cardImage.classList.contains('card__image')) return;
+
+  card.link = cardImage.src;
+  card.name = cardImage.alt;
+
   viewImageElement.src = card.link;
   viewImageElement.alt = card.name;
   imageDescription.textContent = card.name;
   openPopup(popupViewImage);
 };
 
-const onButtonRemoveCard = (evt) => {
-  const card = evt.target.closest('.card');
+const onButtonRemoveCard = evt => {
+  const buttonRemoveCard = evt.target;
+
+  if (!buttonRemoveCard.classList.contains('card__button-remove')) return;
+
+  const card = buttonRemoveCard.closest('.card');
   card.remove();
 };
 
@@ -103,15 +127,10 @@ const createCard = (card) => {
   const cardElement = templateCard.querySelector('.card').cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
   const cardName = cardElement.querySelector('.card__name');
-  const cardButtonRemove = cardElement.querySelector('.card__button-remove');
-  const cardButtonLike = cardElement.querySelector('.card__button-like');
 
   cardImage.src = card.link;
   cardImage.alt = card.name;
-  cardImage.addEventListener('click', () => onViewImage(card));
   cardName.textContent = card.name;
-  cardButtonRemove.addEventListener('click', onButtonRemoveCard);
-  cardButtonLike.addEventListener('click', onButtonLike);
 
   return cardElement;
 };
@@ -138,9 +157,16 @@ profileEditButton.addEventListener('click', onButtonEdit);
 profileAddButton.addEventListener('click', onButtonAdd);
 
 // реакции на кнопки закрытия попапов
-buttonClosePopupProfile.addEventListener('click', onButtonClosePopupProfile);
-buttonClosePopupAddCard.addEventListener('click', onButtonClosePopupAddCard);
-buttonClosePopupViewImage.addEventListener('click', onButtonClosePopupViewImage);
+document.addEventListener('click', onButtonClosePopup);
+
+// открытие превьюшки карты
+document.addEventListener('click', onViewImage);
+
+// удаление карточки по кнопке ведро
+document.addEventListener('click', onButtonRemoveCard);
+
+// реакция на лайк
+document.addEventListener('click', onButtonLike);
 
 // отправка формы
 formProfile.addEventListener('submit', onFormSubmitProfile);
