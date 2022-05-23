@@ -42,7 +42,7 @@ const toggleButtonSubmitState = (inputList, buttonSubmit) => {
 
 const setEventListeners = (form) => {
   const inputList = Array.from(form.querySelectorAll('.popup__input'));
-  const buttonSubmit = form.querySelector('.popup__button');
+  const buttonSubmit = form.querySelector('.popup__button_type_submit');
 
   toggleButtonSubmitState(inputList, buttonSubmit);
 
