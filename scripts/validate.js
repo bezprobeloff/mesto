@@ -3,12 +3,14 @@ const forms = Array.from(document.forms);
 const showInputError = (input) => {
   const inputError = document.querySelector(`.popup__input-error_type_${input.id}`);
 
+  input.classList.add('popup__input_type_error');
   inputError.textContent = input.validationMessage;
 };
 
 const hideInputError = (input) => {
   const inputError = document.querySelector(`.popup__input-error_type_${input.id}`);
 
+  input.classList.remove('popup__input_type_error');
   inputError.textContent = '';
 };
 
