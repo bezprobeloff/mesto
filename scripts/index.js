@@ -78,9 +78,14 @@ const onOverlayClosePopup = evt => {
   closePopup(overlayPopup);
 };
 
-const onButtonEdit = () => {
+// иницализация данных инпутов у формы редактирования профиля
+const initializeProfileInputs = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+};
+
+const onButtonEdit = () => {
+  initializeProfileInputs();
   openPopup(popupProfile);
 };
 
@@ -197,4 +202,7 @@ document.addEventListener('click', onOverlayClosePopup);
 formProfile.addEventListener('submit', onFormSubmitProfile);
 formAddCard.addEventListener('submit', onFormSubmitAddCard);
 
+initializeProfileInputs();
+
+// рендер карточек
 renderCards(initialCards);

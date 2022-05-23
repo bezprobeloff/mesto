@@ -1,5 +1,3 @@
-const forms = Array.from(document.forms);
-
 const showInputError = (input) => {
   const inputError = document.querySelector(`.popup__input-error_type_${input.id}`);
 
@@ -24,13 +22,11 @@ const isValid = (input) => {
 
 const hasInvalidInput = inputList => {
   return inputList.some(input => {
-    console.log(`'${input.value}'`, input.validity.valid);
     return !input.validity.valid;
   });
 };
 
 const toggleButtonSubmitState = (inputList, buttonSubmit) => {
-  console.log(hasInvalidInput(inputList));
   if(hasInvalidInput(inputList)) {
     buttonSubmit.classList.add('popup__button_disabled');
     buttonSubmit.disabled = true;
@@ -59,12 +55,6 @@ const enableValidation = () => {
   const forms = Array.from(document.forms);
 
   forms.forEach(form => {
-    /*
-    form.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
-    */
-
     setEventListeners(form);
   });
 };
