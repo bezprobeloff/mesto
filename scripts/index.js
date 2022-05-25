@@ -22,6 +22,8 @@ const formAddCard = popupAddCard.querySelector('.popup__form');
 const nameCardInput = formAddCard.querySelector(".popup__input_type_card-name");
 const linkCardInput = formAddCard.querySelector(".popup__input_type_card-link");
 const buttonSubmitCard = formAddCard.querySelector(".popup__button_type_submit");
+const nameCardInputErrorText = formAddCard.querySelector('.popup__input-error_type_card-name');
+const linkCardInputErrorText = formAddCard.querySelector('.popup__input-error_type_card-link');
 
 // попап просмотра фото
 const popupViewImage = document.querySelector('.popup_type_view-image');
@@ -52,21 +54,31 @@ const onOverlayClosePopup = evt => {
   closePopup(overlayPopup);
 };
 
-const onButtonEdit = () => {
+const initializeFormProfile = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   // генерация события инпут для корректной валидации
   nameInput.dispatchEvent(new Event('input'));
   jobInput.dispatchEvent(new Event('input'));
+};
+
+const onButtonEdit = () => {
+  initializeFormProfile();
   openPopup(popupProfile);
 };
 
-const onButtonAdd = () => {
-  buttonSubmitCard.disabled = true;
-  if (!buttonSubmitCard.classList.contains('popup__button_disabled')) {
-    buttonSubmitCard.classList.add('popup__button_disabled');
-  }
+const initializeFormAddCard = () => {
   formAddCard.reset();
+  nameCardInput.dispatchEvent(new Event('input'));
+  linkCardInput.dispatchEvent(new Event('input'));
+  nameCardInput.classList.remove('popup__input_type_error');
+  linkCardInput.classList.remove('popup__input_type_error');
+  nameCardInputErrorText.textContent = '';
+  linkCardInputErrorText.textContent = '';
+};
+
+const onButtonAdd = () => {
+  initializeFormAddCard();
   openPopup(popupAddCard);
 };
 
