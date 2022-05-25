@@ -169,7 +169,7 @@ document.addEventListener('click', onButtonLike);
 document.addEventListener('keydown', onKeyEscClosePopup);
 
 // закрытие попапа по клику вне попапа
-document.addEventListener('click', onOverlayClosePopup);
+document.addEventListener('mousedown', onOverlayClosePopup);
 
 // отправка формы
 formProfile.addEventListener('submit', onFormSubmitProfile);
