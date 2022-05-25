@@ -21,6 +21,7 @@ const buttonClosePopupAddCard = popupAddCard.querySelector('.popup__button-close
 const formAddCard = popupAddCard.querySelector('.popup__form');
 const nameCardInput = formAddCard.querySelector(".popup__input_type_card-name");
 const linkCardInput = formAddCard.querySelector(".popup__input_type_card-link");
+const buttonSubmitCard = formAddCard.querySelector(".popup__button_type_submit");
 
 // попап просмотра фото
 const popupViewImage = document.querySelector('.popup_type_view-image');
@@ -51,18 +52,20 @@ const onOverlayClosePopup = evt => {
   closePopup(overlayPopup);
 };
 
-// иницализация данных инпутов у формы редактирования профиля
-const initializeProfileInputs = () => {
+const onButtonEdit = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-};
-
-const onButtonEdit = () => {
-  initializeProfileInputs();
+  // генерация события инпут для корректной валидации
+  nameInput.dispatchEvent(new Event('input'));
+  jobInput.dispatchEvent(new Event('input'));
   openPopup(popupProfile);
 };
 
 const onButtonAdd = () => {
+  buttonSubmitCard.disabled = true;
+  if (!buttonSubmitCard.classList.contains('popup__button_disabled')) {
+    buttonSubmitCard.classList.add('popup__button_disabled');
+  }
   formAddCard.reset();
   openPopup(popupAddCard);
 };
@@ -174,8 +177,6 @@ document.addEventListener('mousedown', onOverlayClosePopup);
 // отправка формы
 formProfile.addEventListener('submit', onFormSubmitProfile);
 formAddCard.addEventListener('submit', onFormSubmitAddCard);
-
-initializeProfileInputs();
 
 // рендер карточек
 renderCards(initialCards);
