@@ -1,3 +1,5 @@
+import Card from './Card.js';
+
 const templateCard = document.querySelector('.template-card').content;
 
 const cardsSection = document.querySelector('.cards');
