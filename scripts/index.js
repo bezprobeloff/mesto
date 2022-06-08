@@ -1,4 +1,13 @@
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
+const formSelectors = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button_type_submit',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  inputTextErrorSelector: '.popup__input-error'
+};
 
 const cardsSection = document.querySelector('.cards');
 
@@ -116,6 +125,14 @@ const onFormSubmitAddCard = evt => {
   closePopup(popupAddCard);
 };
 
+const enableValidationForms = () => {
+  const forms = Array.from(document.forms);
+  forms.forEach(form => {
+    const formValidator = new FormValidator(formSelectors, form);
+    formValidator.enableValidation();
+  });
+};
+
 // реакции на кнопки открытия попапов
 profileEditButton.addEventListener('click', onButtonEdit);
 profileAddButton.addEventListener('click', onButtonAdd);
@@ -135,3 +152,4 @@ formAddCard.addEventListener('submit', onFormSubmitAddCard);
 
 // рендер карточек
 renderCards(initialCards);
+enableValidationForms();
