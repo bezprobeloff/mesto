@@ -15,4 +15,16 @@ export default class Card {
     return cardElement;
   }
 
+  generateCard() {
+    this._cardElement = this._getTemplate();
+    const cardImage = this._cardElement.querySelector('.card__image');
+    const cardName = this._cardElement.querySelector('.card__name');
+
+    cardImage.src = this._link;
+    cardImage.alt = this._name;
+    cardName.textContent = this._name;
+
+    return this._cardElement;
+  }
+
 }
