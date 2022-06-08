@@ -1,7 +1,5 @@
 import Card from './Card.js';
 
-const templateCard = document.querySelector('.template-card').content;
-
 const cardsSection = document.querySelector('.cards');
 
 const profileSection = document.querySelector('.profile');
@@ -26,12 +24,6 @@ const linkCardInput = formAddCard.querySelector(".popup__input_type_card-link");
 const buttonSubmitCard = formAddCard.querySelector(".popup__button_type_submit");
 const nameCardInputErrorText = formAddCard.querySelector('.popup__input-error_type_card-name');
 const linkCardInputErrorText = formAddCard.querySelector('.popup__input-error_type_card-link');
-
-// попап просмотра фото
-const popupViewImage = document.querySelector('.popup_type_view-image');
-const buttonClosePopupViewImage = popupViewImage.querySelector('.popup__button-close');
-const viewImageElement = popupViewImage.querySelector('.popup__view-image');
-const imageDescription = popupViewImage.querySelector('.popup__description');
 
 const openPopup = popup => popup.classList.add('popup_opened');
 
@@ -105,37 +97,6 @@ const onFormSubmitProfile = evt => {
   closePopup(popupProfile);
 };
 
-const onButtonLike = evt => {
-  const buttonLike = evt.target;
-
-  if (!buttonLike.classList.contains('card__button-like')) return;
-
-  buttonLike.classList.toggle('card__button-like_activated');
-};
-
-const onViewImage = evt => {
-  const cardImage = evt.target;
-  const card = {};
-
-  if (!cardImage.classList.contains('card__image')) return;
-
-  card.link = cardImage.src;
-  card.name = cardImage.alt;
-
-  viewImageElement.src = card.link;
-  viewImageElement.alt = card.name;
-  imageDescription.textContent = card.name;
-  openPopup(popupViewImage);
-};
-
-const onButtonRemoveCard = evt => {
-  const buttonRemoveCard = evt.target;
-
-  if (!buttonRemoveCard.classList.contains('card__button-remove')) return;
-
-  const card = buttonRemoveCard.closest('.card');
-  card.remove();
-};
 
 const renderCard = (card) => {
   const cardElement = new Card(card, '.template-card');
@@ -161,15 +122,6 @@ profileAddButton.addEventListener('click', onButtonAdd);
 
 // реакции на кнопки закрытия попапов
 document.addEventListener('click', onButtonClosePopup);
-
-// открытие превьюшки карты
-document.addEventListener('click', onViewImage);
-
-// удаление карточки по кнопке ведро
-document.addEventListener('click', onButtonRemoveCard);
-
-// реакция на лайк
-document.addEventListener('click', onButtonLike);
 
 // закрытие попапа по Esc
 document.addEventListener('keydown', onKeyEscClosePopup);
