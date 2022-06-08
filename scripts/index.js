@@ -137,20 +137,9 @@ const onButtonRemoveCard = evt => {
   card.remove();
 };
 
-const createCard = (card) => {
-  const cardElement = templateCard.querySelector('.card').cloneNode(true);
-  const cardImage = cardElement.querySelector('.card__image');
-  const cardName = cardElement.querySelector('.card__name');
-
-  cardImage.src = card.link;
-  cardImage.alt = card.name;
-  cardName.textContent = card.name;
-
-  return cardElement;
-};
-
 const renderCard = (card) => {
-  cardsSection.prepend(createCard(card));
+  const cardElement = new Card(card, '.template-card');
+  cardsSection.prepend(cardElement.generateCard());
 };
 
 const renderCards = (cards) => {
