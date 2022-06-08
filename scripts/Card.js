@@ -5,4 +5,14 @@ export default class Card {
     this._cardSelector = cardSelector;
   }
 
+  _getTemplate() {
+    const cardElement = document
+      .querySelector(this._cardSelector)
+      .content
+      .querySelector('.card')
+      .cloneNode(true);
+
+    return cardElement;
+  }
+
 }
