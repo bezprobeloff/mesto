@@ -17,18 +17,10 @@ export default class Card {
   }
 
   _onButtonLike = evt => {
-    const buttonLike = evt.target;
-
-    if (!buttonLike.classList.contains('card__button-like')) return;
-
-    buttonLike.classList.toggle('card__button-like_activated');
+    evt.target.classList.toggle('card__button-like_activated');
   }
 
-  _onViewImage = evt => {
-    const cardImage = evt.target;
-
-    if (!cardImage.classList.contains('card__image')) return;
-
+  _onViewImage = () => {
     const imageElement = this._popupViewImage.querySelector('.popup__view-image');
     const imageDescription = this._popupViewImage.querySelector('.popup__description');
 
@@ -38,21 +30,22 @@ export default class Card {
     this._openPopup(this._popupViewImage);
   }
 
-  _onButtonRemoveCard = evt => {
-    const buttonRemoveCard = evt.target;
-
-    if (!buttonRemoveCard.classList.contains('card__button-remove')) return;
-
-    const card = buttonRemoveCard.closest('.card');
+  _onButtonRemoveCard = (evt) => {
+    const card = evt.target.closest('.card');
     card.remove();
   }
 
   _openPopup = popup => popup.classList.add('popup_opened');
 
   _setEventListeners() {
-    this._cardElement.addEventListener('click', (evt) => this._onButtonLike(evt));
-    this._cardElement.addEventListener('click', (evt) => this._onButtonRemoveCard(evt));
-    this._cardElement.addEventListener('click', (evt) => this._onViewImage(evt));
+    this._cardElement.querySelector('.card__button-like')
+      .addEventListener('click', (evt) => this._onButtonLike(evt));
+
+    this._cardElement.querySelector('.card__button-remove')
+      .addEventListener('click', (evt) => this._onButtonRemoveCard(evt));
+
+    this._cardElement.querySelector('.card__image')
+      .addEventListener('click', () => this._onViewImage());
   }
 
   generateCard() {
