@@ -60,8 +60,11 @@ const handleButtonEdit = () => {
 
 const initializeFormAddCard = () => {
   formAddCard.reset();
+  // генерация события инпут для корректной валидации
   nameCardInput.dispatchEvent(new Event('input'));
   linkCardInput.dispatchEvent(new Event('input'));
+  // если первый раз открыть и ввести в что-то и сразу очистить и закрыть
+  // то при повторном открытии сохраняются ошибки, поэтому очищаем ошибки
   nameCardInput.classList.remove('popup__input_type_error');
   linkCardInput.classList.remove('popup__input_type_error');
   nameCardInputErrorText.textContent = '';
