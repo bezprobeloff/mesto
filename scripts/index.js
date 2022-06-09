@@ -41,20 +41,8 @@ const closePopup = popup => popup.classList.remove('popup_opened');
 const handleKeyEscClosePopup = evt => {
   if (evt.key !== 'Escape') return;
 
-  const openedPopups = Array.from(document.querySelectorAll('.popup_opened'));
-
-  openedPopups.forEach(popup => {
-    closePopup(popup);
-  });
-
-};
-
-const handleOverlayClosePopup = evt => {
-  const overlayPopup = evt.target;
-
-  if (!overlayPopup.classList.contains('popup_opened')) return;
-
-  closePopup(overlayPopup);
+  const openedPopup = document.querySelector('.popup_opened');
+  closePopup(openedPopup);
 };
 
 const initializeFormProfile = () => {
@@ -85,17 +73,10 @@ const handleButtonAdd = () => {
   openPopup(popupAddCard);
 };
 
-const handleButtonClosePopup = evt => {
-  const buttonClosePopup = evt.target;
-
-  if (!buttonClosePopup.classList.contains('popup__button-close')) {
-    return;
-  }
-
-  const popup = buttonClosePopup.closest('.popup');
-
-  if (popup) {
-    popup.classList.remove('popup_opened');
+const handleClosePopup = evt => {
+  if (evt.target.classList.contains('popup__button-close')
+        || evt.target.classList.contains('popup')) {
+    closePopup(evt.target.closest('.popup'));
   }
 };
 
@@ -105,7 +86,6 @@ const handleFormSubmitProfile = evt => {
   profileJob.textContent = jobInput.value;
   closePopup(popupProfile);
 };
-
 
 const renderCard = (card) => {
   const cardElement = new Card(card, '.template-card');
@@ -137,14 +117,11 @@ const enableValidationForms = () => {
 profileEditButton.addEventListener('click', handleButtonEdit);
 profileAddButton.addEventListener('click', handleButtonAdd);
 
-// реакции на кнопки закрытия попапов
-document.addEventListener('click', handleButtonClosePopup);
+// реакции на кнопки и по оверлей для закрытия попапов
+document.addEventListener('mousedown', handleClosePopup);
 
 // закрытие попапа по Esc
 document.addEventListener('keydown', handleKeyEscClosePopup);
-
-// закрытие попапа по клику вне попапа
-document.addEventListener('mousedown', handleOverlayClosePopup);
 
 // отправка формы
 formProfile.addEventListener('submit', handleFormSubmitProfile);
