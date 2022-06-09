@@ -30,7 +30,6 @@ export default class Card {
     if (!cardImage.classList.contains('card__image')) return;
 
     const imageElement = this._popupViewImage.querySelector('.popup__view-image');
-    console.log(imageElement);
     const imageDescription = this._popupViewImage.querySelector('.popup__description');
 
     imageElement.src = this._link;
