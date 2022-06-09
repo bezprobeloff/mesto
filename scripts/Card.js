@@ -1,3 +1,5 @@
+import { openPopup } from "./index.js";
+
 export default class Card {
   constructor(data, cardSelector) {
     this._name = data.name;
@@ -27,15 +29,13 @@ export default class Card {
     imageElement.src = this._link;
     imageElement.alt = this._name;
     imageDescription.textContent = this._name;
-    this._openPopup(this._popupViewImage);
+    openPopup(this._popupViewImage);
   }
 
   _handleButtonRemoveCard = (evt) => {
     const card = evt.target.closest('.card');
     card.remove();
   }
-
-  _openPopup = popup => popup.classList.add('popup_opened');
 
   _setEventListeners() {
     this._cardElement.querySelector('.card__button-like')

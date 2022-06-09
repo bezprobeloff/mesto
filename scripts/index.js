@@ -136,3 +136,5 @@ formAddCard.addEventListener('submit', handleFormSubmitAddCard);
 // рендер карточек
 renderCards(initialCards);
 enableValidationForms();
+
+export { openPopup };
