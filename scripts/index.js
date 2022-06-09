@@ -34,9 +34,17 @@ const buttonSubmitCard = formAddCard.querySelector(".popup__button_type_submit")
 const nameCardInputErrorText = formAddCard.querySelector('.popup__input-error_type_card-name');
 const linkCardInputErrorText = formAddCard.querySelector('.popup__input-error_type_card-link');
 
-const openPopup = popup => popup.classList.add('popup_opened');
+const openPopup = popup => {
+  popup.classList.add('popup_opened');
+  // добавление слушателя на закрытие попапа по Esc
+  document.addEventListener('keydown', handleKeyEscClosePopup);
+};
 
-const closePopup = popup => popup.classList.remove('popup_opened');
+const closePopup = popup => {
+  popup.classList.remove('popup_opened');
+  // удаление слушателя на закрытие попапа по Esc
+  document.removeEventListener('keydown', handleKeyEscClosePopup);
+};
 
 const handleKeyEscClosePopup = evt => {
   if (evt.key !== 'Escape') return;
@@ -120,9 +128,6 @@ profileAddButton.addEventListener('click', handleButtonAdd);
 
 // реакции на кнопки и по оверлей для закрытия попапов
 document.addEventListener('mousedown', handleClosePopup);
-
-// закрытие попапа по Esc
-document.addEventListener('keydown', handleKeyEscClosePopup);
 
 // отправка формы
 formProfile.addEventListener('submit', handleFormSubmitProfile);
