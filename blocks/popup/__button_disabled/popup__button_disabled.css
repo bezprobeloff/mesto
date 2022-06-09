@@ -4,6 +4,7 @@
   border: 1px solid #000000;
   opacity: .2;
   transition: none;
+  cursor: default;
 }
 
 .popup__button_disabled:hover {
