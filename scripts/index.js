@@ -38,7 +38,7 @@ const openPopup = popup => popup.classList.add('popup_opened');
 
 const closePopup = popup => popup.classList.remove('popup_opened');
 
-const onKeyEscClosePopup = evt => {
+const handleKeyEscClosePopup = evt => {
   if (evt.key !== 'Escape') return;
 
   const openedPopups = Array.from(document.querySelectorAll('.popup_opened'));
@@ -49,7 +49,7 @@ const onKeyEscClosePopup = evt => {
 
 };
 
-const onOverlayClosePopup = evt => {
+const handleOverlayClosePopup = evt => {
   const overlayPopup = evt.target;
 
   if (!overlayPopup.classList.contains('popup_opened')) return;
@@ -65,7 +65,7 @@ const initializeFormProfile = () => {
   jobInput.dispatchEvent(new Event('input'));
 };
 
-const onButtonEdit = () => {
+const handleButtonEdit = () => {
   initializeFormProfile();
   openPopup(popupProfile);
 };
@@ -80,12 +80,12 @@ const initializeFormAddCard = () => {
   linkCardInputErrorText.textContent = '';
 };
 
-const onButtonAdd = () => {
+const handleButtonAdd = () => {
   initializeFormAddCard();
   openPopup(popupAddCard);
 };
 
-const onButtonClosePopup = evt => {
+const handleButtonClosePopup = evt => {
   const buttonClosePopup = evt.target;
 
   if (!buttonClosePopup.classList.contains('popup__button-close')) {
@@ -99,7 +99,7 @@ const onButtonClosePopup = evt => {
   }
 };
 
-const onFormSubmitProfile = evt => {
+const handleFormSubmitProfile = evt => {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
@@ -116,7 +116,7 @@ const renderCards = (cards) => {
   cards.forEach(card => renderCard(card));
 };
 
-const onFormSubmitAddCard = evt => {
+const handleFormSubmitAddCard = evt => {
   evt.preventDefault();
   const card = {};
   card.name = nameCardInput.value;
@@ -134,21 +134,21 @@ const enableValidationForms = () => {
 };
 
 // реакции на кнопки открытия попапов
-profileEditButton.addEventListener('click', onButtonEdit);
-profileAddButton.addEventListener('click', onButtonAdd);
+profileEditButton.addEventListener('click', handleButtonEdit);
+profileAddButton.addEventListener('click', handleButtonAdd);
 
 // реакции на кнопки закрытия попапов
-document.addEventListener('click', onButtonClosePopup);
+document.addEventListener('click', handleButtonClosePopup);
 
 // закрытие попапа по Esc
-document.addEventListener('keydown', onKeyEscClosePopup);
+document.addEventListener('keydown', handleKeyEscClosePopup);
 
 // закрытие попапа по клику вне попапа
-document.addEventListener('mousedown', onOverlayClosePopup);
+document.addEventListener('mousedown', handleOverlayClosePopup);
 
 // отправка формы
-formProfile.addEventListener('submit', onFormSubmitProfile);
-formAddCard.addEventListener('submit', onFormSubmitAddCard);
+formProfile.addEventListener('submit', handleFormSubmitProfile);
+formAddCard.addEventListener('submit', handleFormSubmitAddCard);
 
 // рендер карточек
 renderCards(initialCards);

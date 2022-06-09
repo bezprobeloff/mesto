@@ -16,11 +16,11 @@ export default class Card {
     return cardElement;
   }
 
-  _onButtonLike = evt => {
+  _handleButtonLike = evt => {
     evt.target.classList.toggle('card__button-like_activated');
   }
 
-  _onViewImage = () => {
+  _handleViewImage = () => {
     const imageElement = this._popupViewImage.querySelector('.popup__view-image');
     const imageDescription = this._popupViewImage.querySelector('.popup__description');
 
@@ -30,7 +30,7 @@ export default class Card {
     this._openPopup(this._popupViewImage);
   }
 
-  _onButtonRemoveCard = (evt) => {
+  _handleButtonRemoveCard = (evt) => {
     const card = evt.target.closest('.card');
     card.remove();
   }
@@ -39,13 +39,13 @@ export default class Card {
 
   _setEventListeners() {
     this._cardElement.querySelector('.card__button-like')
-      .addEventListener('click', (evt) => this._onButtonLike(evt));
+      .addEventListener('click', (evt) => this._handleButtonLike(evt));
 
     this._cardElement.querySelector('.card__button-remove')
-      .addEventListener('click', (evt) => this._onButtonRemoveCard(evt));
+      .addEventListener('click', (evt) => this._handleButtonRemoveCard(evt));
 
     this._cardElement.querySelector('.card__image')
-      .addEventListener('click', () => this._onViewImage());
+      .addEventListener('click', () => this._handleViewImage());
   }
 
   generateCard() {
