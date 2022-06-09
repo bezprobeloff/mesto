@@ -98,10 +98,8 @@ const renderCards = (cards) => {
 
 const handleFormSubmitAddCard = evt => {
   evt.preventDefault();
-  const card = {};
-  card.name = nameCardInput.value;
-  card.link = linkCardInput.value;
-  renderCard(card);
+
+  renderCard({name: nameCardInput.value, link: linkCardInput.value});
   closePopup(popupAddCard);
 };
 
