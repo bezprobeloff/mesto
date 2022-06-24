@@ -1,6 +1,7 @@
 import {initialCards} from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
 
 const formSelectors = {
   inputSelector: '.popup__input',
@@ -10,7 +11,7 @@ const formSelectors = {
   inputTextErrorSelector: '.popup__input-error'
 };
 
-const cardsSection = document.querySelector('.cards');
+const cardListSection = '.cards';
 
 const profileSection = document.querySelector('.profile');
 const profileName = profileSection.querySelector('.profile__name');
@@ -20,18 +21,15 @@ const profileAddButton = profileSection.querySelector('.profile__button-add');
 
 // переменные попапа редактирования профиля
 const popupProfile = document.querySelector('.popup_type_edit-profile');
-const buttonClosePopupProfile = popupProfile.querySelector('.popup__button-close');
 const formProfile = popupProfile.querySelector('.popup__form');
 const nameInput = formProfile.querySelector(".popup__input_type_user-name");
 const jobInput = formProfile.querySelector(".popup__input_type_user-job");
 
 // переменные попапа добавления карточки
 const popupAddCard = document.querySelector('.popup_type_add-card');
-const buttonClosePopupAddCard = popupAddCard.querySelector('.popup__button-close');
 const formAddCard = popupAddCard.querySelector('.popup__form');
 const nameCardInput = formAddCard.querySelector(".popup__input_type_card-name");
 const linkCardInput = formAddCard.querySelector(".popup__input_type_card-link");
-const buttonSubmitCard = formAddCard.querySelector(".popup__button_type_submit");
 const nameCardInputErrorText = formAddCard.querySelector('.popup__input-error_type_card-name');
 const linkCardInputErrorText = formAddCard.querySelector('.popup__input-error_type_card-link');
 
@@ -104,10 +102,6 @@ const renderCard = (card) => {
   cardsSection.prepend(cardElement.generateCard());
 };
 
-const renderCards = (cards) => {
-  cards.forEach(card => renderCard(card));
-};
-
 const handleFormSubmitAddCard = evt => {
   evt.preventDefault();
 
@@ -134,8 +128,19 @@ document.addEventListener('mousedown', handleClosePopup);
 formProfile.addEventListener('submit', handleFormSubmitProfile);
 formAddCard.addEventListener('submit', handleFormSubmitAddCard);
 
+const cardList = new Section({
+    items: initialCards,
+    renderer: (cardItem) => {
+      const card = new Card(cardItem, '.template-card');
+      const cardElement = card.generateCard();
+      cardList.addItem(cardElement);
+    }
+  },
+  cardListSection
+);
 // рендер карточек
-renderCards(initialCards);
+cardList.renderedItems();
+
 enableValidationForms();
 
 export { openPopup };
