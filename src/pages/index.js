@@ -2,6 +2,7 @@ import {initialCards} from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
 
 const formSelectors = {
   inputSelector: '.popup__input',
@@ -33,24 +34,29 @@ const linkCardInput = formAddCard.querySelector(".popup__input_type_card-link");
 const nameCardInputErrorText = formAddCard.querySelector('.popup__input-error_type_card-name');
 const linkCardInputErrorText = formAddCard.querySelector('.popup__input-error_type_card-link');
 
+/*
 const openPopup = popup => {
   popup.classList.add('popup_opened');
   // добавление слушателя на закрытие попапа по Esc
   document.addEventListener('keydown', handleKeyEscClosePopup);
 };
-
+*/
+/*
 const closePopup = popup => {
   popup.classList.remove('popup_opened');
   // удаление слушателя на закрытие попапа по Esc
   document.removeEventListener('keydown', handleKeyEscClosePopup);
 };
+*/
 
+/*
 const handleKeyEscClosePopup = evt => {
   if (evt.key !== 'Escape') return;
 
   const openedPopup = document.querySelector('.popup_opened');
   closePopup(openedPopup);
 };
+*/
 
 const initializeFormProfile = () => {
   nameInput.value = profileName.textContent;
@@ -83,12 +89,14 @@ const handleButtonAdd = () => {
   openPopup(popupAddCard);
 };
 
+/*
 const handleClosePopup = evt => {
   if (evt.target.classList.contains('popup__button-close')
         || evt.target.classList.contains('popup')) {
     closePopup(evt.target.closest('.popup'));
   }
 };
+*/
 
 const handleFormSubmitProfile = evt => {
   evt.preventDefault();
@@ -121,8 +129,10 @@ const enableValidationForms = () => {
 profileEditButton.addEventListener('click', handleButtonEdit);
 profileAddButton.addEventListener('click', handleButtonAdd);
 
+/*
 // реакции на кнопки и по оверлей для закрытия попапов
 document.addEventListener('mousedown', handleClosePopup);
+*/
 
 // отправка формы
 formProfile.addEventListener('submit', handleFormSubmitProfile);
@@ -141,6 +151,9 @@ const cardList = new Section({
 // рендер карточек
 cardList.renderedItems();
 
+const popupWithImage = new Popup('.popup_type_view-image');
+popupWithImage.setEventListeners();
+
 enableValidationForms();
 
-export { openPopup };
+//export { openPopup };

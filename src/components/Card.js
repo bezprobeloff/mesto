@@ -1,4 +1,4 @@
-import { openPopup } from "../pages/index.js";
+//import { openPopup } from "../pages/index.js";
 
 export default class Card {
   constructor(data, cardSelector) {
@@ -29,7 +29,7 @@ export default class Card {
     imageElement.src = this._link;
     imageElement.alt = this._name;
     imageDescription.textContent = this._name;
-    openPopup(this._popupViewImage);
+    //openPopup(this._popupViewImage);
   }
 
   _handleButtonRemoveCard = (evt) => {
