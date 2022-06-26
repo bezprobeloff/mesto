@@ -1,8 +1,16 @@
-import {initialCards} from '../utils/constants.js';
+import {
+  initialCards,
+  cardListSection,
+  cardTemplateSelector,
+  popupViewImageSelector,
+  popupEditProfileSelector,
+  popupAddCardSelector
+} from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 
 const formSelectors = {
   inputSelector: '.popup__input',
@@ -12,7 +20,8 @@ const formSelectors = {
   inputTextErrorSelector: '.popup__input-error'
 };
 
-const cardListSection = '.cards';
+
+
 
 const profileSection = document.querySelector('.profile');
 const profileName = profileSection.querySelector('.profile__name');
@@ -27,13 +36,14 @@ const nameInput = formProfile.querySelector(".popup__input_type_user-name");
 const jobInput = formProfile.querySelector(".popup__input_type_user-job");
 
 // переменные попапа добавления карточки
+/*
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const formAddCard = popupAddCard.querySelector('.popup__form');
 const nameCardInput = formAddCard.querySelector(".popup__input_type_card-name");
 const linkCardInput = formAddCard.querySelector(".popup__input_type_card-link");
 const nameCardInputErrorText = formAddCard.querySelector('.popup__input-error_type_card-name');
 const linkCardInputErrorText = formAddCard.querySelector('.popup__input-error_type_card-link');
-
+*/
 /*
 const openPopup = popup => {
   popup.classList.add('popup_opened');
@@ -126,8 +136,8 @@ const enableValidationForms = () => {
 };
 
 // реакции на кнопки открытия попапов
-profileEditButton.addEventListener('click', handleButtonEdit);
-profileAddButton.addEventListener('click', handleButtonAdd);
+//profileEditButton.addEventListener('click', handleButtonEdit);
+//profileAddButton.addEventListener('click', handleButtonAdd);
 
 /*
 // реакции на кнопки и по оверлей для закрытия попапов
@@ -135,13 +145,13 @@ document.addEventListener('mousedown', handleClosePopup);
 */
 
 // отправка формы
-formProfile.addEventListener('submit', handleFormSubmitProfile);
-formAddCard.addEventListener('submit', handleFormSubmitAddCard);
+//formProfile.addEventListener('submit', handleFormSubmitProfile);
+//formAddCard.addEventListener('submit', handleFormSubmitAddCard);
 
 const cardList = new Section({
     items: initialCards,
     renderer: (cardItem) => {
-      const card = new Card(cardItem, '.template-card');
+      const card = new Card(cardItem, cardTemplateSelector);
       const cardElement = card.generateCard();
       cardList.addItem(cardElement);
     }
@@ -151,8 +161,34 @@ const cardList = new Section({
 // рендер карточек
 cardList.renderedItems();
 
-const popupWithImage = new Popup('.popup_type_view-image');
+const popupWithImage = new Popup(popupViewImageSelector);
 popupWithImage.setEventListeners();
+//profileAddButton.addEventListener('click', popupWithImage.open.bind(popupWithImage));
+
+const popupEditProfile = new PopupWithForm({}, popupEditProfileSelector);
+popupEditProfile.setEventListeners();
+profileEditButton.addEventListener('click', popupEditProfile.open.bind(popupEditProfile));
+
+const popupAddCard = new PopupWithForm({
+  handleSubmit: evt => {
+    evt.preventDefault();
+
+    const inputValues = popupAddCard._getInputValues();
+
+    const card = new Card({
+      name: inputValues['card-name'],
+      link: inputValues['card-link']
+    }, cardTemplateSelector);
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+    popupAddCard.close();
+  }
+  },
+  popupAddCardSelector,
+);
+popupAddCard.setEventListeners();
+profileAddButton.addEventListener('click', popupAddCard.open.bind(popupAddCard));
+
 
 enableValidationForms();
 
