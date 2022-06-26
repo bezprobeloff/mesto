@@ -25,6 +25,8 @@ export const initialCards = [
   }
 ];
 
+export const userNameSelector = '.profile__name';
+export const userJobSelector = '.profile__job';
 export const cardListSection = '.cards';
 export const cardTemplateSelector = '.template-card';
 export const viewImageSelector = '.popup__view-image';

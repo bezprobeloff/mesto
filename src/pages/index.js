@@ -1,11 +1,14 @@
 import {
   initialCards,
+  userNameSelector,
+  userJobSelector,
   cardListSection,
   cardTemplateSelector,
   popupViewImageSelector,
   popupEditProfileSelector,
   popupAddCardSelector
 } from '../utils/constants.js';
+import UserInfo from '../components/UserInfo.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -24,8 +27,10 @@ const formSelectors = {
 
 
 const profileSection = document.querySelector('.profile');
+/*
 const profileName = profileSection.querySelector('.profile__name');
 const profileJob = profileSection.querySelector('.profile__job');
+*/
 const profileEditButton = profileSection.querySelector('.profile__button-edit');
 const profileAddButton = profileSection.querySelector('.profile__button-add');
 
@@ -148,6 +153,11 @@ document.addEventListener('mousedown', handleClosePopup);
 //formProfile.addEventListener('submit', handleFormSubmitProfile);
 //formAddCard.addEventListener('submit', handleFormSubmitAddCard);
 
+const userInfo = new UserInfo({
+  nameSelector: userNameSelector,
+  jobSelector: userJobSelector
+});
+
 const cardList = new Section({
     items: initialCards,
     renderer: (cardItem) => {
@@ -165,24 +175,28 @@ const popupWithImage = new Popup(popupViewImageSelector);
 popupWithImage.setEventListeners();
 //profileAddButton.addEventListener('click', popupWithImage.open.bind(popupWithImage));
 
-const popupEditProfile = new PopupWithForm({}, popupEditProfileSelector);
+const popupEditProfile = new PopupWithForm({
+    handleSubmit: evt => {}
+  },
+  popupEditProfileSelector
+);
 popupEditProfile.setEventListeners();
 profileEditButton.addEventListener('click', popupEditProfile.open.bind(popupEditProfile));
 
 const popupAddCard = new PopupWithForm({
-  handleSubmit: evt => {
-    evt.preventDefault();
+    handleSubmit: evt => {
+      evt.preventDefault();
 
-    const inputValues = popupAddCard._getInputValues();
+      const inputValues = popupAddCard._getInputValues();
 
-    const card = new Card({
-      name: inputValues['card-name'],
-      link: inputValues['card-link']
-    }, cardTemplateSelector);
-    const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
-    popupAddCard.close();
-  }
+      const card = new Card({
+        name: inputValues['card-name'],
+        link: inputValues['card-link']
+      }, cardTemplateSelector);
+      const cardElement = card.generateCard();
+      cardList.addItem(cardElement);
+      popupAddCard.close();
+    }
   },
   popupAddCardSelector,
 );
