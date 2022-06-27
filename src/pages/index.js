@@ -3,20 +3,20 @@ import {
   formSelectors,
   userNameSelector,
   userJobSelector,
-  userNameInput,
-  userJobInput,
   profileEditButton,
   profileAddButton,
-  cardNameInput,
-  cardLinkInput,
-  cardNameInputErrorText,
-  cardLinkInputErrorText,
   cardListSection,
   cardTemplateSelector,
   popupViewImageSelector,
   popupEditProfileSelector,
   popupAddCardSelector
 } from '../utils/constants.js';
+
+import {
+  initializeEditProfileForm,
+  initializeAddCardForm
+} from '../utils/utils.js';
+
 import UserInfo from '../components/UserInfo.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -63,15 +63,10 @@ const cardList = new Section({
 // рендер карточек
 cardList.renderedItems();
 
-
 const popupEditProfile = new PopupWithForm({
     initializeForm: () => {
       const userData = userInfo.getUserInfo();
-      userNameInput.value = userData.name;
-      userJobInput.value = userData.job;
-      // генерация события инпут для корректной валидации
-      userNameInput.dispatchEvent(new Event('input'));
-      userJobInput.dispatchEvent(new Event('input'));
+      initializeEditProfileForm(userData);
     },
     handleSubmit: evt => {
       evt.preventDefault();
@@ -84,20 +79,13 @@ const popupEditProfile = new PopupWithForm({
   },
   popupEditProfileSelector
 );
+
 popupEditProfile.setEventListeners();
 profileEditButton.addEventListener('click', popupEditProfile.open.bind(popupEditProfile));
 
 const popupAddCard = new PopupWithForm({
     initializeForm: () => {
-      // генерация события инпут для корректной валидации
-      cardNameInput.dispatchEvent(new Event('input'));
-      cardLinkInput.dispatchEvent(new Event('input'));
-      // если первый раз открыть и ввести в что-то и сразу очистить и закрыть
-      // то при повторном открытии сохраняются ошибки, поэтому очищаем ошибки
-      cardNameInput.classList.remove('popup__input_type_error');
-      cardLinkInput.classList.remove('popup__input_type_error');
-      cardNameInputErrorText.textContent = '';
-      cardLinkInputErrorText.textContent = '';
+      initializeAddCardForm();
     },
     handleSubmit: evt => {
       evt.preventDefault();
