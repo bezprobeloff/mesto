@@ -25,8 +25,18 @@ export const initialCards = [
   }
 ];
 
+export const formSelectors = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button_type_submit',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  inputTextErrorSelector: '.popup__input-error'
+};
+
 export const userNameSelector = '.profile__name';
 export const userJobSelector = '.profile__job';
+export const profileEditButton = document.querySelector('.profile__button-edit');
+export const profileAddButton = document.querySelector('.profile__button-add');
 export const userNameInput = document.querySelector(".popup__input_type_user-name");
 export const userJobInput = document.querySelector(".popup__input_type_user-job");
 export const cardNameInput = document.querySelector(".popup__input_type_card-name");
