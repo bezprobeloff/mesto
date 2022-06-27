@@ -41,8 +41,10 @@ module.exports = {
         // при обработке этих файлов нужно использовать
         // MiniCssExtractPlugin.loader и css-loader
         use: [MiniCssExtractPlugin.loader, {
-          loader: 'css-loader'
-        }]
+          loader: 'css-loader',
+          options: { importLoaders: 1 }
+        },
+        'postcss-loader']
       }
       ]
   },
