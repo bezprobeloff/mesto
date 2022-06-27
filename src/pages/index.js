@@ -2,6 +2,8 @@ import {
   initialCards,
   userNameSelector,
   userJobSelector,
+  userNameInput,
+  userJobInput,
   cardListSection,
   cardTemplateSelector,
   popupViewImageSelector,
@@ -176,7 +178,22 @@ popupWithImage.setEventListeners();
 //profileAddButton.addEventListener('click', popupWithImage.open.bind(popupWithImage));
 
 const popupEditProfile = new PopupWithForm({
-    handleSubmit: evt => {}
+    initializeForm: () => {
+      const userData = userInfo.getUserInfo();
+      userNameInput.value = userData.name;
+      userJobInput.value = userData.job;
+      // генерация события инпут для корректной валидации
+      userNameInput.dispatchEvent(new Event('input'));
+      userJobInput.dispatchEvent(new Event('input'));
+    },
+    handleSubmit: evt => {
+      evt.preventDefault();
+
+      const inputValues = popupEditProfile._getInputValues();
+      userInfo.setUserInfo(inputValues);
+
+      popupEditProfile.close();
+    }
   },
   popupEditProfileSelector
 );
