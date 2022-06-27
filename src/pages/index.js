@@ -18,7 +18,7 @@ import UserInfo from '../components/UserInfo.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 
 const formSelectors = {
@@ -164,10 +164,30 @@ const userInfo = new UserInfo({
   jobSelector: userJobSelector
 });
 
+const popupWithImage = new PopupWithImage(popupViewImageSelector);
+popupWithImage.setEventListeners();
+//profileAddButton.addEventListener('click', popupWithImage.open.bind(popupWithImage));
+
+
 const cardList = new Section({
     items: initialCards,
     renderer: (cardItem) => {
-      const card = new Card(cardItem, cardTemplateSelector);
+      const card = new Card({
+          name: cardItem.name,
+          link: cardItem.link,
+          handleCardClick: () => {
+            const popup = popupWithImage.getPopupElement();
+            const imageElement = popup.querySelector('.popup__view-image');
+            const imageDescription = popup.querySelector('.popup__description');
+            imageElement.src = card._link;
+            imageElement.alt = card._name;
+            imageDescription.textContent = card._name;
+
+            popupWithImage.open();
+          }
+        },
+        cardTemplateSelector
+      );
       const cardElement = card.generateCard();
       cardList.addItem(cardElement);
     }
@@ -177,9 +197,6 @@ const cardList = new Section({
 // рендер карточек
 cardList.renderedItems();
 
-const popupWithImage = new Popup(popupViewImageSelector);
-popupWithImage.setEventListeners();
-//profileAddButton.addEventListener('click', popupWithImage.open.bind(popupWithImage));
 
 const popupEditProfile = new PopupWithForm({
     initializeForm: () => {
@@ -223,7 +240,17 @@ const popupAddCard = new PopupWithForm({
 
       const card = new Card({
         name: inputValues['card-name'],
-        link: inputValues['card-link']
+        link: inputValues['card-link'],
+        handleCardClick: () => {
+          const popup = popupWithImage.getPopupElement();
+          const imageElement = popup.querySelector('.popup__view-image');
+          const imageDescription = popup.querySelector('.popup__description');
+          imageElement.src = card._link;
+          imageElement.alt = card._name;
+          imageDescription.textContent = card._name;
+
+          popupWithImage.open();
+        }
       }, cardTemplateSelector);
       const cardElement = card.generateCard();
       cardList.addItem(cardElement);

@@ -3,6 +3,10 @@ export default class Popup {
     this._popup = document.querySelector(popupSelector);
   }
 
+  getPopupElement() {
+    return this._popup;
+  }
+
   open() {
     this._popup.classList.add('popup_opened');
     // добавление слушателя на закрытие попапа по Esc

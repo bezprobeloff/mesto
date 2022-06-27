@@ -1,9 +1,9 @@
 export default class Card {
-  constructor({ name, link}, cardSelector) {
+  constructor({ name, link, handleCardClick}, cardSelector) {
     this._name = name;
     this._link = link;
+    this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
-    this._popupViewImage = document.querySelector('.popup_type_view-image');
   }
 
   _getTemplate() {
@@ -20,16 +20,6 @@ export default class Card {
     evt.target.classList.toggle('card__button-like_activated');
   }
 
-  _handleViewImage = () => {
-    const imageElement = this._popupViewImage.querySelector('.popup__view-image');
-    const imageDescription = this._popupViewImage.querySelector('.popup__description');
-
-    imageElement.src = this._link;
-    imageElement.alt = this._name;
-    imageDescription.textContent = this._name;
-    //openPopup(this._popupViewImage);
-  }
-
   _handleButtonRemoveCard = (evt) => {
     const card = evt.target.closest('.card');
     card.remove();
@@ -43,7 +33,7 @@ export default class Card {
       .addEventListener('click', (evt) => this._handleButtonRemoveCard(evt));
 
     this._cardElement.querySelector('.card__image')
-      .addEventListener('click', () => this._handleViewImage());
+      .addEventListener('click', () => this._handleCardClick());
   }
 
   generateCard() {
