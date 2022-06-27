@@ -4,6 +4,10 @@ import {
   userJobSelector,
   userNameInput,
   userJobInput,
+  cardNameInput,
+  cardLinkInput,
+  cardNameInputErrorText,
+  cardLinkInputErrorText,
   cardListSection,
   cardTemplateSelector,
   popupViewImageSelector,
@@ -201,6 +205,17 @@ popupEditProfile.setEventListeners();
 profileEditButton.addEventListener('click', popupEditProfile.open.bind(popupEditProfile));
 
 const popupAddCard = new PopupWithForm({
+    initializeForm: () => {
+      // генерация события инпут для корректной валидации
+      cardNameInput.dispatchEvent(new Event('input'));
+      cardLinkInput.dispatchEvent(new Event('input'));
+      // если первый раз открыть и ввести в что-то и сразу очистить и закрыть
+      // то при повторном открытии сохраняются ошибки, поэтому очищаем ошибки
+      cardNameInput.classList.remove('popup__input_type_error');
+      cardLinkInput.classList.remove('popup__input_type_error');
+      cardNameInputErrorText.textContent = '';
+      cardLinkInputErrorText.textContent = '';
+    },
     handleSubmit: evt => {
       evt.preventDefault();
 
