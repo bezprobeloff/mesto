@@ -79,7 +79,7 @@ const popupEditProfile = new PopupWithForm({
     handleSubmit: evt => {
       evt.preventDefault();
 
-      const inputValues = popupEditProfile._getInputValues();
+      const inputValues = popupEditProfile.getInputValues();
       userInfo.setUserInfo(inputValues);
 
       popupEditProfile.close();
