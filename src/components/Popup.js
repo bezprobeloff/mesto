@@ -1,18 +1,20 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
+    this._handleEscClose = this._handleEscClose.bind(this);
+    this._handleClose = this._handleClose.bind(this);
   }
 
   open() {
     this._popup.classList.add('popup_opened');
     // добавление слушателя на закрытие попапа по Esc
-    document.addEventListener('keydown', this._handleEscClose.bind(this));
+    document.addEventListener('keydown', this._handleEscClose);
   }
 
   close() {
     this._popup.classList.remove('popup_opened');
     // удаление слушателя на закрытие попапа по Esc
-    document.removeEventListener('keydown', this._handleEscClose.bind(this));
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 
   _handleEscClose(evt) {
@@ -30,6 +32,6 @@ export default class Popup {
 
   setEventListeners() {
     // реакции на кнопки и по оверлей для закрытия попапов
-    this._popup.addEventListener('mousedown', this._handleClose.bind(this));
+    this._popup.addEventListener('mousedown', this._handleClose);
   }
 };
