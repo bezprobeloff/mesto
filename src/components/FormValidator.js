@@ -58,6 +58,16 @@ export default class  FormValidator {
     });
   }
 
+  resetValidation = () => {
+    this._inputList.forEach(input => {
+      // сгенерируем событие инпут для корректной валидации
+      input.dispatchEvent(new Event('input'));
+      this._hideInputError(input);
+    });
+
+    this._toggleButtonSubmitState();
+  }
+
   enableValidation = () => {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
