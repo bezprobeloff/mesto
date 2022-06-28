@@ -43,19 +43,23 @@ const userInfo = new UserInfo({
 const popupWithImage = new PopupWithImage(popupViewImageSelector);
 popupWithImage.setEventListeners();
 
+const createCard = ({ name, link}) => {
+  const card = new Card({
+    name,
+    link,
+    handleCardClick: () => {
+        popupWithImage.open({ name, link});
+    }
+  }, cardTemplateSelector);
+  const cardElement = card.generateCard();
+
+  return cardElement;
+};
+
 const cardList = new Section({
     items: initialCards,
     renderer: (cardItem) => {
-      const card = new Card({
-          name: cardItem.name,
-          link: cardItem.link,
-          handleCardClick: () => {
-            popupWithImage.open(cardItem);
-          }
-        },
-        cardTemplateSelector
-      );
-      const cardElement = card.generateCard();
+      const cardElement = createCard(cardItem);
       cardList.addItem(cardElement);
     }
   },
@@ -97,14 +101,7 @@ const popupAddCard = new PopupWithForm({
         link: inputValues['card-link']
       };
 
-      const card = new Card({
-        name: cardItem.name,
-        link: cardItem.link,
-        handleCardClick: () => {
-            popupWithImage.open(cardItem);
-        }
-      }, cardTemplateSelector);
-      const cardElement = card.generateCard();
+      const cardElement = createCard(cardItem);
       cardList.addItem(cardElement);
       popupAddCard.close();
     }
