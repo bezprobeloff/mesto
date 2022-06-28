@@ -101,7 +101,7 @@ const popupAddCard = new PopupWithForm({
         name: cardItem.name,
         link: cardItem.link,
         handleCardClick: () => {
-            popupWithImage.open({cardItem});
+            popupWithImage.open(cardItem);
         }
       }, cardTemplateSelector);
       const cardElement = card.generateCard();
