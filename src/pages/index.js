@@ -98,7 +98,7 @@ const popupAddCard = new PopupWithForm({
     handleSubmit: evt => {
       evt.preventDefault();
 
-      const inputValues = popupAddCard._getInputValues();
+      const inputValues = popupAddCard.getInputValues();
       const cardItem = {
         name: inputValues['card-name'],
         link: inputValues['card-link']
