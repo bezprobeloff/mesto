@@ -107,9 +107,9 @@ const popupEditProfile = new PopupWithForm({
       api.setUser({name: inputValues.name, about: inputValues.job})
         .then(res => {
           userInfo.setUserInfo(inputValues);
-        });
-
-      popupEditProfile.close();
+          popupEditProfile.close();
+        }
+      );
     }
   },
   popupEditProfileSelector
@@ -131,9 +131,13 @@ const popupAddCard = new PopupWithForm({
         link: inputValues['card-link']
       };
 
-      const cardElement = createCard(cardItem);
-      cardList.addItem(cardElement);
-      popupAddCard.close();
+      api.createCard(cardItem)
+        .then(res => {
+          const cardElement = createCard(cardItem);
+          cardList.addItem(cardElement);
+          popupAddCard.close();
+        }
+      );
     }
   },
   popupAddCardSelector,
