@@ -54,10 +54,12 @@ api.getUser()
 const popupWithImage = new PopupWithImage(popupViewImageSelector);
 popupWithImage.setEventListeners();
 
-const createCard = ({ name, link}) => {
+const createCard = ({ name, link, likes, _id}) => {
   const card = new Card({
     name,
     link,
+    likes,
+    _id,
     handleCardClick: () => {
         popupWithImage.open({ name, link});
     }
@@ -83,7 +85,9 @@ api.getInitialCards()
     const dataCards = res.map(data => {
       return {
         name: data.name,
-        link: data.link
+        link: data.link,
+        likes: data.likes,
+        _id: data._id
       }
     });
     // передадим массив данных
