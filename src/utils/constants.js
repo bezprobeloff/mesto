@@ -33,8 +33,17 @@ export const formSelectors = {
   inputTextErrorSelector: '.popup__input-error'
 };
 
+export const apiConfig = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-45',
+  headers: {
+    authorization: 'b37c4061-07ee-4c8e-af47-35d22a87fc06',
+    'Content-Type': 'application/json'
+  }
+};
+
 export const userNameSelector = '.profile__name';
 export const userJobSelector = '.profile__job';
+export const userAvatarSelector = '.profile__avatar';
 export const profileEditButton = document.querySelector('.profile__button-edit');
 export const profileAddButton = document.querySelector('.profile__button-add');
 export const userNameInput = document.querySelector(".popup__input_type_user-name");

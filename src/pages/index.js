@@ -1,9 +1,12 @@
 import './index.css';
+
 import {
   initialCards,
   formSelectors,
+  apiConfig,
   userNameSelector,
   userJobSelector,
+  userAvatarSelector,
   userNameInput,
   userJobInput,
   profileEditButton,
@@ -15,6 +18,7 @@ import {
   popupAddCardSelector
 } from '../utils/constants.js';
 
+import Api from '../components/Api';
 import UserInfo from '../components/UserInfo.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -22,8 +26,8 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 
+const api = new Api(apiConfig);
 const formValidators = {};
-
 const enableValidationForms = () => {
   const forms = Array.from(document.forms);
   forms.forEach(form => {
@@ -38,8 +42,15 @@ enableValidationForms();
 
 const userInfo = new UserInfo({
   nameSelector: userNameSelector,
-  jobSelector: userJobSelector
+  jobSelector: userJobSelector,
+  avatarSelector: userAvatarSelector
 });
+
+api.getUser()
+  .then(data => {
+    userInfo.initialize(data);
+  }
+);
 
 const popupWithImage = new PopupWithImage(popupViewImageSelector);
 popupWithImage.setEventListeners();
