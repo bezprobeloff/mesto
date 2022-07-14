@@ -13,6 +13,10 @@ export default class UserInfo {
     this._id = _id;
   }
 
+  getUserId() {
+    return this._id;
+  }
+
   getUserInfo() {
     return {
       name: this._name.textContent,
