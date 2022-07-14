@@ -1,7 +1,6 @@
 import './index.css';
 
 import {
-  initialCards,
   formSelectors,
   apiConfig,
   userNameSelector,
@@ -68,8 +67,9 @@ const createCard = ({ name, link}) => {
   return cardElement;
 };
 
+//создаем класс разметки карточки с пустым массивом
 const cardList = new Section({
-    items: initialCards,
+    items: null,
     renderer: (cardItem) => {
       const cardElement = createCard(cardItem);
       cardList.addItem(cardElement);
@@ -77,8 +77,21 @@ const cardList = new Section({
   },
   cardListSection
 );
-// рендер карточек
-cardList.renderedItems();
+// получим данные карточек из сервера
+api.getInitialCards()
+  .then(res => {
+    const dataCards = res.map(data => {
+      return {
+        name: data.name,
+        link: data.link
+      }
+    });
+    // передадим массив данных
+    cardList.setInitialArray(dataCards);
+    // и сделаем рендер карточек
+    cardList.renderedItems();
+  }
+);
 
 const popupEditProfile = new PopupWithForm({
     initializeForm: () => {
