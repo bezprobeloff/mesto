@@ -104,7 +104,10 @@ const popupEditProfile = new PopupWithForm({
       evt.preventDefault();
 
       const inputValues = popupEditProfile.getInputValues();
-      userInfo.setUserInfo(inputValues);
+      api.setUser({name: inputValues.name, about: inputValues.job})
+        .then(res => {
+          userInfo.setUserInfo(inputValues);
+        });
 
       popupEditProfile.close();
     }
