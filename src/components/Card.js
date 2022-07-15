@@ -1,11 +1,12 @@
 export default class Card {
-  constructor({ name, link, likes, _id, owner, handleCardClick}, cardSelector) {
+  constructor({ name, link, likes = [], _id, owner = false, handleCardClick, removeCard}, cardSelector) {
     this._name = name;
     this._link = link;
     this._likes = likes;
     this._id = _id;
     this._owner = owner;
     this._handleCardClick = handleCardClick;
+    this._removeCard = removeCard.bind(this);
     this._cardSelector = cardSelector;
   }
 
@@ -24,6 +25,7 @@ export default class Card {
   }
 
   _handleButtonRemoveCard = (evt) => {
+    this._removeCard(this._id);
     const card = evt.target.closest('.card');
     card.remove();
   }

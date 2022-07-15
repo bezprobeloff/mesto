@@ -59,4 +59,15 @@ export default class Api {
     })
   }
 
+  removeCard(idCard) {
+    return fetch(`${this._baseUrl}/cards/${idCard}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+    });
+  }
 }
