@@ -53,10 +53,7 @@ api.getUser()
 
 //коллбек удаления карточки
 const removeCard = (id) => {
-  api.removeCard(id)
-    .then(res => {
-      console.log(res.ok);
-    });
+  api.removeCard(id);
 };
 
 const popupWithImage = new PopupWithImage(popupViewImageSelector);
@@ -144,12 +141,12 @@ const popupAddCard = new PopupWithForm({
       const cardItem = {
         name: inputValues['card-name'],
         link: inputValues['card-link'],
-        owner: true,
-        removeCard,
+        owner: true
       };
 
       api.createCard(cardItem)
         .then(res => {
+          cardItem._id = res._id;
           const cardElement = createCard(cardItem);
           cardList.addItem(cardElement);
           popupAddCard.close();
