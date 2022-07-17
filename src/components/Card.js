@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({ name, link, likes = [], _id, owner = {}, userId, handleCardClick, removeCard, toggleLike}, cardSelector) {
+  constructor({ name, link, likes = [], _id, owner = {}, userId, handleCardClick, handleRemoveCardClick, toggleLike}, cardSelector) {
     this._name = name;
     this._link = link;
     this._likes = likes;
@@ -7,7 +7,7 @@ export default class Card {
     this._ownerId = owner._id;
     this._userId = userId;
     this._handleCardClick = handleCardClick;
-    this._removeCard = removeCard.bind(this);
+    this._handleRemoveCardClick = handleRemoveCardClick;
     this._toggleLike = toggleLike.bind(this);
     this._cardSelector = cardSelector;
   }
@@ -45,18 +45,12 @@ export default class Card {
       });
   }
 
-  _handleButtonRemoveCard = (evt) => {
-    this._removeCard(this._id);
-    const card = evt.target.closest('.card');
-    card.remove();
-  }
-
   _setEventListeners() {
     this._cardElement.querySelector('.card__button-like')
       .addEventListener('click', (evt) => this._handleButtonLike(evt));
 
     this._cardElement.querySelector('.card__button-remove')
-      .addEventListener('click', (evt) => this._handleButtonRemoveCard(evt));
+      .addEventListener('click', () => this._handleRemoveCardClick());
 
     this._cardElement.querySelector('.card__image')
       .addEventListener('click', () => this._handleCardClick());

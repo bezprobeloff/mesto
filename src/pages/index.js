@@ -14,7 +14,8 @@ import {
   cardTemplateSelector,
   popupViewImageSelector,
   popupEditProfileSelector,
-  popupAddCardSelector
+  popupAddCardSelector,
+  popupConfirmSelector
 } from '../utils/constants.js';
 
 import Api from '../components/Api';
@@ -51,9 +52,18 @@ api.getUser()
   }
 );
 
+const popupConfirm = new PopupWithForm({
+  initializeForm: () => {},
+  handleSubmit: (evt) => {}
+},
+  popupConfirmSelector
+);
+
+popupConfirm.setEventListeners();
+
 //коллбек удаления карточки
 const removeCard = (id) => {
-  api.removeCard(id);
+  return api.removeCard(id);
 };
 
 const setLikeCard = (idCard) => {
@@ -87,10 +97,24 @@ const createCard = ({ name, link, likes, _id, owner}) => {
     _id,
     owner,
     userId: userInfo.getUserId(),
-    removeCard,
     toggleLike,
     handleCardClick: () => {
         popupWithImage.open({ name, link});
+    },
+    handleRemoveCardClick : () => {
+      const newHandleSubmit = (evt) => {
+        evt.preventDefault();
+
+        removeCard(card._id)
+          .then(res => {
+            card._cardElement.remove();
+            popupConfirm.close();
+          });
+      };
+      popupConfirm.setHandleSubmit(newHandleSubmit);
+      popupConfirm.setEventListeners();
+      popupConfirm.open();
+
     }
   }, cardTemplateSelector);
   const cardElement = card.generateCard();
