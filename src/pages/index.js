@@ -86,6 +86,7 @@ const createCard = ({ name, link, likes, _id, owner}) => {
     likes,
     _id,
     owner,
+    userId: userInfo.getUserId(),
     removeCard,
     toggleLike,
     handleCardClick: () => {
@@ -116,7 +117,7 @@ api.getInitialCards()
         link: data.link,
         likes: data.likes,
         _id: data._id,
-        owner: data.owner._id === userInfo.getUserId()
+        owner: data.owner
       }
     });
     // передадим массив данных
@@ -161,13 +162,13 @@ const popupAddCard = new PopupWithForm({
       const inputValues = popupAddCard.getInputValues();
       const cardItem = {
         name: inputValues['card-name'],
-        link: inputValues['card-link'],
-        owner: true
+        link: inputValues['card-link']
       };
 
       api.createCard(cardItem)
         .then(res => {
           cardItem._id = res._id;
+          cardItem.owner = res.owner;
           const cardElement = createCard(cardItem);
           cardList.addItem(cardElement);
           popupAddCard.close();

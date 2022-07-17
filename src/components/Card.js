@@ -1,10 +1,11 @@
 export default class Card {
-  constructor({ name, link, likes = [], _id, owner = false, handleCardClick, removeCard, toggleLike}, cardSelector) {
+  constructor({ name, link, likes = [], _id, owner = {}, userId, handleCardClick, removeCard, toggleLike}, cardSelector) {
     this._name = name;
     this._link = link;
     this._likes = likes;
     this._id = _id;
-    this._owner = owner;
+    this._ownerId = owner._id;
+    this._userId = userId;
     this._handleCardClick = handleCardClick;
     this._removeCard = removeCard.bind(this);
     this._toggleLike = toggleLike.bind(this);
@@ -26,13 +27,22 @@ export default class Card {
       .textContent = likes.length;
   }
 
+  _getStateLike() {
+    return this._likes
+    .find(owner => owner._id === this._userId);
+  }
+
   _handleButtonLike = evt => {
     this._toggleLike(this._id, this._likes)
       .then(res => {
         this._likes = res.likes;
         this._setCountLikes(this._likes);
+        if(this._getStateLike()) {
+          evt.target.classList.add('card__button-like_activated');
+        } else {
+          evt.target.classList.remove('card__button-like_activated');
+        }
       });
-    evt.target.classList.toggle('card__button-like_activated');
   }
 
   _handleButtonRemoveCard = (evt) => {
@@ -65,7 +75,7 @@ export default class Card {
     cardName.textContent = this._name;
     cardLikes.textContent = this._likes.length;
 
-    if(!this._owner) {
+    if(this._ownerId !== this._userId) {
       cardButtonRemove.remove();
     }
 
