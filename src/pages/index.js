@@ -56,6 +56,26 @@ const removeCard = (id) => {
   api.removeCard(id);
 };
 
+const setLikeCard = (idCard) => {
+  return api.setLike(idCard);
+};
+
+const removeLikeCard = (idCard) => {
+  return api.removeLike(idCard);
+};
+
+// коллбек снятия/постановки лайков
+const toggleLike = (idCard, likes) => {
+  const stateLike = likes
+    .find(owner => owner._id === userInfo._id);
+
+  if(!stateLike) {
+    return setLikeCard(idCard);
+  } else {
+    return removeLikeCard(idCard);
+  }
+};
+
 const popupWithImage = new PopupWithImage(popupViewImageSelector);
 popupWithImage.setEventListeners();
 
@@ -67,6 +87,7 @@ const createCard = ({ name, link, likes, _id, owner}) => {
     _id,
     owner,
     removeCard,
+    toggleLike,
     handleCardClick: () => {
         popupWithImage.open({ name, link});
     }

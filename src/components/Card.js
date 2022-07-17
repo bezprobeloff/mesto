@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({ name, link, likes = [], _id, owner = false, handleCardClick, removeCard}, cardSelector) {
+  constructor({ name, link, likes = [], _id, owner = false, handleCardClick, removeCard, toggleLike}, cardSelector) {
     this._name = name;
     this._link = link;
     this._likes = likes;
@@ -7,6 +7,7 @@ export default class Card {
     this._owner = owner;
     this._handleCardClick = handleCardClick;
     this._removeCard = removeCard.bind(this);
+    this._toggleLike = toggleLike.bind(this);
     this._cardSelector = cardSelector;
   }
 
@@ -20,7 +21,17 @@ export default class Card {
     return cardElement;
   }
 
+  _setCountLikes(likes) {
+    this._cardElement.querySelector('.card__count-like')
+      .textContent = likes.length;
+  }
+
   _handleButtonLike = evt => {
+    this._toggleLike(this._id, this._likes)
+      .then(res => {
+        this._likes = res.likes;
+        this._setCountLikes(this._likes);
+      });
     evt.target.classList.toggle('card__button-like_activated');
   }
 
