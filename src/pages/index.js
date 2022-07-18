@@ -204,7 +204,10 @@ const popupEditProfile = new PopupWithForm({
           userInfo.setUserInfo(inputValues);
           popupEditProfile.close();
         }
-      );
+      )
+      .catch(err => {
+        console.log(err);
+      });
     }
   },
   popupEditProfileSelector
