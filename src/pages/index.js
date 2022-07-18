@@ -57,7 +57,7 @@ const userInfo = new UserInfo({
   handleAvatarClick: () => {
     const newHandleSubmit = (evt) => {
       evt.preventDefault();
-
+      popupUpdateAvatar.setTextButtonSubmit('Сохранение...');
       const avatarLink = popupUpdateAvatar.getInputValues()
         .avatar;
 
@@ -134,7 +134,6 @@ const createCard = ({ name, link, likes, _id, owner}) => {
     handleRemoveCardClick : () => {
       const newHandleSubmit = (evt) => {
         evt.preventDefault();
-
         removeCard(card._id)
           .then(res => {
             card._cardElement.remove();
@@ -190,7 +189,7 @@ const popupEditProfile = new PopupWithForm({
     },
     handleSubmit: evt => {
       evt.preventDefault();
-
+      popupEditProfile.setTextButtonSubmit('Сохранение...');
       const inputValues = popupEditProfile.getInputValues();
       api.setUser({name: inputValues.name, about: inputValues.job})
         .then(res => {
@@ -212,7 +211,7 @@ const popupAddCard = new PopupWithForm({
     },
     handleSubmit: evt => {
       evt.preventDefault();
-
+      popupAddCard.setTextButtonSubmit('Сохранение...');
       const inputValues = popupAddCard.getInputValues();
       const cardItem = {
         name: inputValues['card-name'],
