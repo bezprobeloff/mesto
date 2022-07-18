@@ -90,19 +90,11 @@ api.getUser()
     console.log(err);
   });
 
-const popupConfirm = new PopupWithForm({
-  initializeForm: () => {},
-  handleSubmit: (evt) => {}
-},
+const popupConfirm = new PopupWithForm({},
   popupConfirmSelector
 );
 
 popupConfirm.setEventListeners();
-
-//коллбек удаления карточки
-const removeCard = (id) => {
-  return api.removeCard(id);
-};
 
 const setLikeCard = (idCard) => {
   return api.setLike(idCard);
@@ -140,18 +132,23 @@ const createCard = ({ name, link, likes, _id, owner}) => {
         popupWithImage.open({ name, link});
     },
     handleRemoveCardClick : () => {
+      // создадим хендл для попапа
       const newHandleSubmit = (evt) => {
         evt.preventDefault();
-        removeCard(card._id)
+
+        api.removeCard(card.getId())
           .then(res => {
-            card._cardElement.remove();
+            card.remove();
             popupConfirm.close();
+          })
+          .catch(err => {
+            console.log(err);
           });
       };
+      // запишем хендл
       popupConfirm.setHandleSubmit(newHandleSubmit);
       popupConfirm.setEventListeners();
       popupConfirm.open();
-
     }
   }, cardTemplateSelector);
   const cardElement = card.generateCard();

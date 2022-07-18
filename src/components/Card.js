@@ -56,6 +56,14 @@ export default class Card {
       .addEventListener('click', () => this._handleCardClick());
   }
 
+  getId() {
+    return this._id;
+  }
+
+  remove() {
+    this._cardElement.remove();
+  }
+
   generateCard() {
     this._cardElement = this._getTemplate();
     this._setEventListeners();
