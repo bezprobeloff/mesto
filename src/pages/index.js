@@ -183,8 +183,10 @@ api.getInitialCards()
     cardList.setInitialArray(dataCards);
     // и сделаем рендер карточек
     cardList.renderedItems();
-  }
-);
+  })
+  .catch(err => {
+    console.log(err);
+});
 
 const popupEditProfile = new PopupWithForm({
     initializeForm: () => {
