@@ -1,6 +1,8 @@
-.profile__avatar {
+.profile__avatar-image {
   width: 120px;
   height: 120px;
   object-fit: cover;
   border-radius: 50%;
+  cursor: pointer;
 }
+
