@@ -96,26 +96,6 @@ const popupConfirm = new PopupWithForm({},
 
 popupConfirm.setEventListeners();
 
-const setLikeCard = (idCard) => {
-  return api.setLike(idCard);
-};
-
-const removeLikeCard = (idCard) => {
-  return api.removeLike(idCard);
-};
-
-// коллбек снятия/постановки лайков
-const toggleLike = (idCard, likes) => {
-  const stateLike = likes
-    .find(owner => owner._id === userInfo._id);
-
-  if(!stateLike) {
-    return setLikeCard(idCard);
-  } else {
-    return removeLikeCard(idCard);
-  }
-};
-
 const popupWithImage = new PopupWithImage(popupViewImageSelector);
 popupWithImage.setEventListeners();
 
@@ -127,7 +107,28 @@ const createCard = ({ name, link, likes, _id, owner}) => {
     _id,
     owner,
     userId: userInfo.getUserId(),
-    toggleLike,
+    handleButtonLike: () => {
+      const stateLike = card.getLikes()
+        .find(owner => owner._id === userInfo._id);
+
+      if(!stateLike) {
+        api.setLike(card.getId())
+          .then(res => {
+            card.renderLikes(res.likes);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } else {
+        api.removeLike(card.getId())
+          .then(res => {
+            card.renderLikes(res.likes);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    },
     handleCardClick: () => {
         popupWithImage.open({ name, link});
     },
