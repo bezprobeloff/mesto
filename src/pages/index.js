@@ -15,7 +15,8 @@ import {
   popupViewImageSelector,
   popupEditProfileSelector,
   popupAddCardSelector,
-  popupConfirmSelector
+  popupConfirmSelector,
+  popupUpdateAvatarSelector
 } from '../utils/constants.js';
 
 import Api from '../components/Api';
@@ -40,16 +41,42 @@ const enableValidationForms = () => {
 
 enableValidationForms();
 
+const popupUpdateAvatar = new PopupWithForm({
+  initializeForm: () => {},
+  handleSubmit: (evt) => {}
+},
+  popupUpdateAvatarSelector
+);
+
 const userInfo = new UserInfo({
   nameSelector: userNameSelector,
   jobSelector: userJobSelector,
-  avatarSelector: userAvatarSelector
+  avatarSelector: userAvatarSelector,
+  handleAvatarClick: () => {
+    const newHandleSubmit = (evt) => {
+      evt.preventDefault();
+
+      const avatarLink = popupUpdateAvatar.getInputValues()
+        .avatar;
+
+      api.updateAvatar(avatarLink)
+        .then(res => {
+          //card._cardElement.remove();
+          userInfo.updateAvatar(avatarLink);
+          popupUpdateAvatar.close();
+        });
+    };
+    popupUpdateAvatar.setHandleSubmit(newHandleSubmit);
+    popupUpdateAvatar.setEventListeners();
+    popupUpdateAvatar.open();
+  }
 });
+
+userInfo.setEventListeners();
 
 api.getUser()
   .then(data => {
     userInfo.initialize(data);
-    userInfo.setEventListeners();
   }
 );
 

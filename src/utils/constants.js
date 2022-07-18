@@ -61,3 +61,4 @@ export const popupViewImageSelector = '.popup_type_view-image';
 export const popupEditProfileSelector = '.popup_type_edit-profile';
 export const popupAddCardSelector = '.popup_type_add-card';
 export const popupConfirmSelector = '.popup_type_confirm';
+export const popupUpdateAvatarSelector = '.popup_type_update-avatar';
