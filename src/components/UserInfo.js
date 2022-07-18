@@ -3,6 +3,7 @@ export default class UserInfo {
     this._name = document.querySelector(nameSelector);
     this._job = document.querySelector(jobSelector);
     this._avatar = document.querySelector(avatarSelector);
+    this._avatarContainer = this._avatar.parentNode;
     this._id = '';
   }
 
@@ -11,6 +12,10 @@ export default class UserInfo {
     this._job.textContent = about,
     this._avatar.src = avatar;
     this._id = _id;
+  }
+
+  setEventListeners() {
+    this._avatarContainer.addEventListener('click', () => {console.log('click')});
   }
 
   getUserId() {

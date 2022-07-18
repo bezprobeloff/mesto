@@ -49,6 +49,7 @@ const userInfo = new UserInfo({
 api.getUser()
   .then(data => {
     userInfo.initialize(data);
+    userInfo.setEventListeners();
   }
 );
 
