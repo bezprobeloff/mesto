@@ -233,11 +233,14 @@ const popupAddCard = new PopupWithForm({
         .then(res => {
           cardItem._id = res._id;
           cardItem.owner = res.owner;
+          cardItem.likes = res.likes;
           const cardElement = createCard(cardItem);
           cardList.addItem(cardElement);
           popupAddCard.close();
-        }
-      );
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   popupAddCardSelector,
