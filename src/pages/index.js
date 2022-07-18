@@ -28,6 +28,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 
 const api = new Api(apiConfig);
+
 const formValidators = {};
 const enableValidationForms = () => {
   const forms = Array.from(document.forms);
@@ -38,14 +39,13 @@ const enableValidationForms = () => {
     formValidator.enableValidation();
   });
 };
-
+// включаем валидацию форм
 enableValidationForms();
 
 const popupUpdateAvatar = new PopupWithForm({
   initializeForm: () => {
     formValidators['formUpdateAvatar'].resetValidation();
-  },
-  handleSubmit: (evt) => {}
+  }
 },
   popupUpdateAvatarSelector
 );
@@ -55,19 +55,24 @@ const userInfo = new UserInfo({
   jobSelector: userJobSelector,
   avatarSelector: userAvatarSelector,
   handleAvatarClick: () => {
+    // создадим хендл сабмита для попапа
     const newHandleSubmit = (evt) => {
       evt.preventDefault();
-      popupUpdateAvatar.setTextButtonSubmit('Сохранение...');
-      const avatarLink = popupUpdateAvatar.getInputValues()
-        .avatar;
 
+      const avatarLink = popupUpdateAvatar.getInputValues()
+          .avatar;
       api.updateAvatar(avatarLink)
         .then(res => {
-          //card._cardElement.remove();
-          userInfo.updateAvatar(avatarLink);
+          popupUpdateAvatar.setTextButtonSubmit('Сохранение...');
+
+          userInfo.updateAvatar(res.avatar);
           popupUpdateAvatar.close();
+        })
+        .catch(err => {
+          console.log(err);
         });
     };
+    // запишем хендл
     popupUpdateAvatar.setHandleSubmit(newHandleSubmit);
     popupUpdateAvatar.setEventListeners();
     popupUpdateAvatar.open();
@@ -76,11 +81,14 @@ const userInfo = new UserInfo({
 
 userInfo.setEventListeners();
 
+// получим данные пользователя и проинициализируем на странице
 api.getUser()
   .then(data => {
     userInfo.initialize(data);
-  }
-);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 const popupConfirm = new PopupWithForm({
   initializeForm: () => {},

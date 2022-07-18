@@ -1,7 +1,10 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor({ initializeForm, handleSubmit }, popupSelector) {
+  constructor({
+    initializeForm = () => {},
+    handleSubmit = () => {}
+  }, popupSelector) {
     super(popupSelector);
     this._form = this._popup.querySelector('.popup__form');
     this._buttonSubmit = this._form.querySelector('.popup__button_type_submit');
@@ -20,10 +23,12 @@ export default class PopupWithForm extends Popup {
     return inputValues;
   }
 
+  // введем другой текст кнопке отправки
   setTextButtonSubmit(text) {
     this._buttonSubmit.textContent = text;
   }
 
+  // передадим другой хендл сабмита
   setHandleSubmit(handleSubmit) {
     this._handleSubmit = handleSubmit;
   }
@@ -34,6 +39,7 @@ export default class PopupWithForm extends Popup {
   }
 
   open() {
+    // вернем по умолчанию текст кнопки сабмита
     this._buttonSubmit.textContent = this._buttonSubmitTextDefault;
     this._initializeForm();
     super.open();
