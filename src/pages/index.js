@@ -42,7 +42,9 @@ const enableValidationForms = () => {
 enableValidationForms();
 
 const popupUpdateAvatar = new PopupWithForm({
-  initializeForm: () => {},
+  initializeForm: () => {
+    formValidators['formUpdateAvatar'].resetValidation();
+  },
   handleSubmit: (evt) => {}
 },
   popupUpdateAvatarSelector
