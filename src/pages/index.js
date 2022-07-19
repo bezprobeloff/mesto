@@ -61,13 +61,16 @@ const popupUpdateAvatar = new PopupWithForm({
       .avatar;
     api.updateAvatar(avatarLink)
       .then(res => {
-        popupUpdateAvatar.setTextButtonSubmit('Сохранение...');
+        popupUpdateAvatar.setTextButton('Сохранение...');
 
         userInfo.updateAvatar(res.avatar);
         popupUpdateAvatar.close();
       })
       .catch(err => {
         console.log(err);
+      })
+      .finally(() => {
+        popupUpdateAvatar.resetTextButton();
       });
   }
 },
@@ -189,7 +192,7 @@ const popupEditProfile = new PopupWithForm({
     },
     handleSubmit: evt => {
       evt.preventDefault();
-      popupEditProfile.setTextButtonSubmit('Сохранение...');
+      popupEditProfile.setTextButton('Сохранение...');
       const inputValues = popupEditProfile.getInputValues();
       api.setUser({name: inputValues.name, about: inputValues.job})
         .then(res => {
@@ -199,6 +202,9 @@ const popupEditProfile = new PopupWithForm({
       )
       .catch(err => {
         console.log(err);
+      })
+      .finally(() => {
+        popupEditProfile.resetTextButton();
       });
     }
   },
@@ -214,7 +220,7 @@ const popupAddCard = new PopupWithForm({
     },
     handleSubmit: evt => {
       evt.preventDefault();
-      popupAddCard.setTextButtonSubmit('Сохранение...');
+      popupAddCard.setTextButton('Сохранение...');
       const inputValues = popupAddCard.getInputValues();
       const cardItem = {
         name: inputValues['card-name'],
@@ -232,6 +238,9 @@ const popupAddCard = new PopupWithForm({
         })
         .catch(err => {
           console.log(err);
+        })
+        .finally(() => {
+          popupAddCard.resetTextButton();
         });
     }
   },

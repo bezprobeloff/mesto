@@ -24,8 +24,12 @@ export default class PopupWithForm extends Popup {
   }
 
   // введем другой текст кнопке отправки
-  setTextButtonSubmit(text) {
+  setTextButton(text) {
     this._buttonSubmit.textContent = text;
+  }
+  // вернем текст по умолчанию
+  resetTextButton() {
+    this.setTextButton(this._buttonSubmitTextDefault);
   }
 
   // передадим другой хендл сабмита
@@ -39,8 +43,6 @@ export default class PopupWithForm extends Popup {
   }
 
   open() {
-    // вернем по умолчанию текст кнопки сабмита
-    this._buttonSubmit.textContent = this._buttonSubmitTextDefault;
     this._initializeForm();
     super.open();
   }

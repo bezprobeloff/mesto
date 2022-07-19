@@ -12,8 +12,8 @@ export default class PopupConfirm extends Popup {
   setTextButton(text) {
     this._buttonConfirm.textContent = text;
   }
-
-  setDefaultTextButton() {
+  // вернем текст по умолчанию
+  resetTextButton() {
     this.setTextButton(this._buttonConfirmTextDefault);
   }
 
