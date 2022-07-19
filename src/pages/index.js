@@ -6,6 +6,7 @@ import {
   userNameSelector,
   userJobSelector,
   userAvatarSelector,
+  userAvatarContainer,
   userNameInput,
   userJobInput,
   profileEditButton,
@@ -43,44 +44,38 @@ const enableValidationForms = () => {
 // включаем валидацию форм
 enableValidationForms();
 
+const userInfo = new UserInfo({
+  nameSelector: userNameSelector,
+  jobSelector: userJobSelector,
+  avatarSelector: userAvatarSelector
+});
+
 const popupUpdateAvatar = new PopupWithForm({
   initializeForm: () => {
     formValidators['formUpdateAvatar'].resetValidation();
+  },
+  handleSubmit: (evt) => {
+    evt.preventDefault();
+
+    const avatarLink = popupUpdateAvatar.getInputValues()
+      .avatar;
+    api.updateAvatar(avatarLink)
+      .then(res => {
+        popupUpdateAvatar.setTextButtonSubmit('Сохранение...');
+
+        userInfo.updateAvatar(res.avatar);
+        popupUpdateAvatar.close();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 },
   popupUpdateAvatarSelector
 );
 
-const userInfo = new UserInfo({
-  nameSelector: userNameSelector,
-  jobSelector: userJobSelector,
-  avatarSelector: userAvatarSelector,
-  handleAvatarClick: () => {
-    // создадим хендл сабмита для попапа
-    const newHandleSubmit = (evt) => {
-      evt.preventDefault();
-
-      const avatarLink = popupUpdateAvatar.getInputValues()
-          .avatar;
-      api.updateAvatar(avatarLink)
-        .then(res => {
-          popupUpdateAvatar.setTextButtonSubmit('Сохранение...');
-
-          userInfo.updateAvatar(res.avatar);
-          popupUpdateAvatar.close();
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    };
-    // запишем хендл
-    popupUpdateAvatar.setHandleSubmit(newHandleSubmit);
-    popupUpdateAvatar.setEventListeners();
-    popupUpdateAvatar.open();
-  }
-});
-
-userInfo.setEventListeners();
+popupUpdateAvatar.setEventListeners();
+userAvatarContainer.addEventListener('click', popupUpdateAvatar.open.bind(popupUpdateAvatar));
 
 const popupConfirm = new PopupConfirm({
   handleConfirmClick: () => {}

@@ -17,6 +17,7 @@ export const apiConfig = {
 export const userNameSelector = '.profile__name';
 export const userJobSelector = '.profile__job';
 export const userAvatarSelector = '.profile__avatar-image';
+export const userAvatarContainer = document.querySelector('.profile__avatar-container');
 export const profileEditButton = document.querySelector('.profile__button-edit');
 export const profileAddButton = document.querySelector('.profile__button-add');
 export const userNameInput = document.querySelector(".popup__input_type_user-name");
