@@ -81,7 +81,7 @@ popupUpdateAvatar.setEventListeners();
 userAvatarContainer.addEventListener('click', popupUpdateAvatar.open.bind(popupUpdateAvatar));
 
 const popupConfirm = new PopupConfirm({
-  handleConfirmClick: (card) => {
+  handleConfirm: (card) => {
     api.removeCard(card.getId())
       .then(() => {
         card.remove();

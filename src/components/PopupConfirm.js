@@ -1,11 +1,12 @@
 import Popup from "./Popup.js";
 
 export default class PopupConfirm extends Popup {
-  constructor({handleConfirmClick}, popupSelector) {
+  constructor({handleConfirm}, popupSelector) {
     super(popupSelector);
     this._buttonConfirm = this._popup.querySelector('.popup__button_type_confirm');
     this._buttonConfirmTextDefault = this._buttonConfirm.textContent;
-    this._handleConfirmClick = handleConfirmClick;
+    this._handleConfirm = handleConfirm;
+    this._handleConfirmClick = () => {};
   }
 
   // введем другой текст кнопке отправки
@@ -23,9 +24,7 @@ export default class PopupConfirm extends Popup {
 
   open(item) {
     super.open();
-    //this._handleConfirmClick = this._handleConfirm(item);
-    //console.log(this._handleConfirmClick);
-    this._handleConfirmClick = this._handleConfirmClick.bind(null, item);
+    this._handleConfirmClick = this._handleConfirm.bind(null, item);
     this._buttonConfirm.addEventListener('click', this._handleConfirmClick);
   }
 
