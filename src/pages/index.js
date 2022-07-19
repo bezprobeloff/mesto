@@ -26,6 +26,7 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupConfirm from '../components/PopupConfirm.js';
 
 const api = new Api(apiConfig);
 
@@ -81,16 +82,9 @@ const userInfo = new UserInfo({
 
 userInfo.setEventListeners();
 
-// получим данные пользователя и проинициализируем на странице
-api.getUser()
-  .then(data => {
-    userInfo.initialize(data);
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
-const popupConfirm = new PopupWithForm({},
+const popupConfirm = new PopupConfirm({
+  handleConfirmClick: () => {}
+},
   popupConfirmSelector
 );
 
@@ -167,10 +161,13 @@ const cardList = new Section({
   },
   cardListSection
 );
-// получим данные карточек из сервера
-api.getInitialCards()
-  .then(res => {
-    const dataCards = res.map(data => {
+
+// получим сразу данные по юзеру и карточкам
+Promise.all([api.getUser(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    // проинициализируем данные юзера на странице
+    userInfo.initialize(userData);
+    const dataCards = cards.map(data => {
       return {
         name: data.name,
         link: data.link,
@@ -186,7 +183,7 @@ api.getInitialCards()
   })
   .catch(err => {
     console.log(err);
-});
+  });
 
 const popupEditProfile = new PopupWithForm({
     initializeForm: () => {
