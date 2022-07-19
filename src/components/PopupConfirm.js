@@ -17,23 +17,20 @@ export default class PopupConfirm extends Popup {
     this.setTextButton(this._buttonConfirmTextDefault);
   }
 
-  /*
-  // передадим другой хендл сабмита
-  setHandleSubmit(handleSubmit) {
-    this._handleSubmit = handleSubmit;
-  }
-
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener('submit', this._handleSubmit);
   }
-  */
 
-  open() {
+  open(item) {
     super.open();
+    //this._handleConfirmClick = this._handleConfirm(item);
+    //console.log(this._handleConfirmClick);
+    this._handleConfirmClick = this._handleConfirmClick.bind(null, item);
+    this._buttonConfirm.addEventListener('click', this._handleConfirmClick);
   }
 
   close() {
     super.close();
+    this._buttonConfirm.removeEventListener('click', this._handleConfirmClick);
   }
 }

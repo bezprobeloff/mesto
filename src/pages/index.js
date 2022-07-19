@@ -81,7 +81,16 @@ popupUpdateAvatar.setEventListeners();
 userAvatarContainer.addEventListener('click', popupUpdateAvatar.open.bind(popupUpdateAvatar));
 
 const popupConfirm = new PopupConfirm({
-  handleConfirmClick: () => {}
+  handleConfirmClick: (card) => {
+    api.removeCard(card.getId())
+      .then(() => {
+        card.remove();
+        popupConfirm.close();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 },
   popupConfirmSelector
 );
@@ -125,23 +134,7 @@ const createCard = ({ name, link, likes, _id, owner}) => {
         popupWithImage.open({ name, link});
     },
     handleRemoveCardClick : () => {
-      // создадим хендл для попапа
-      const newHandleSubmit = (evt) => {
-        evt.preventDefault();
-
-        api.removeCard(card.getId())
-          .then(res => {
-            card.remove();
-            popupConfirm.close();
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      };
-      // запишем хендл
-      popupConfirm.setHandleSubmit(newHandleSubmit);
-      popupConfirm.setEventListeners();
-      popupConfirm.open();
+      popupConfirm.open(card);
     }
   }, cardTemplateSelector);
   const cardElement = card.generateCard();

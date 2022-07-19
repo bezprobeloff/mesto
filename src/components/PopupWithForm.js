@@ -1,10 +1,7 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor({
-    initializeForm = () => {},
-    handleSubmit = () => {}
-  }, popupSelector) {
+  constructor({ initializeForm, handleSubmit }, popupSelector) {
     super(popupSelector);
     this._form = this._popup.querySelector('.popup__form');
     this._buttonSubmit = this._form.querySelector('.popup__button_type_submit');
@@ -30,11 +27,6 @@ export default class PopupWithForm extends Popup {
   // вернем текст по умолчанию
   resetTextButton() {
     this.setTextButton(this._buttonSubmitTextDefault);
-  }
-
-  // передадим другой хендл сабмита
-  setHandleSubmit(handleSubmit) {
-    this._handleSubmit = handleSubmit;
   }
 
   setEventListeners() {
