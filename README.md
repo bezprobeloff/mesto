@@ -1,19 +1,22 @@
-# Проект: Место
+<h1 align="center">Mesto Russia</h1>
+<p align="center">
+    <img alt="Version" src="https://img.shields.io/github/package-json/v/bezprobeloff/mesto" />
+    <img alt="Quality" src="https://img.shields.io/badge/status-release-orange.svg" >
+    <img alt="Made by: Bezprobeloff" src="https://img.shields.io/badge/made%20by-Bezprobeloff-blue" />
+</p>
 
-### Обзор
-* Интро
-* Технологии
-* Где посмотреть
+Ссылка на deploy проекта в gh-pages: **[Mesto Russia](https://bezprobeloff.github.io/mesto/index.html)**
 
-**Интро**
 
+![Watch the video](./readme/preview.gif)
+
+
+**Обзор**
 &emsp;Проект сайта о красивых местах в России, который можно посмотреть в режиме мобильного, планшета и десктопа.
 &emsp;На каждом устройстве сайт адаптивно меняется для удобства и читабельности.
 &emsp;Можем обмениваться информацией с сервером по REST API: добавить и удалить (только свою) карточку с подтверждением, поставить/снять лайк, обновление данных пользователя (имя, аватарка) и т.д.
 
 **Технологии**
-
-Использованы следующие технологии:
 
 * __Flexbox__
 * __Grid__
@@ -39,11 +42,11 @@
 **Скрипты**
 ###  `npm run build`
 
-Запуск сборки
+Запуск сборки проекта. Сохраняется в папку dist
 
 ### `npm run dev`
 
-Запуск в режиме разработки, в итоге в браузере автоматически откроется по такому адресу [http://localhost:8080/]
+Запуск в режиме разработки, в браузере автоматически откроется по такому адресу [http://localhost:8080/]
 
 **Где посмотреть и пощупать сайт сразу?**
 
