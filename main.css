@@ -42,3 +42,5 @@
 .popup__button{background-color:#000;border:0;border-radius:2px;color:#fff;cursor:pointer;font-size:14px;font-weight:400;height:46px;line-height:1.21;margin-top:10px;padding:0;text-align:center;transition:background-color .6s;width:100%}@media screen and (min-width:768px){.popup__button{font-size:18px;line-height:1.22;margin-top:13px}}.popup__button:hover{background-color:rgba(0,0,0,.8)}
 .popup__button_disabled{border:1px solid #000;color:#000;cursor:default;opacity:.2;transition:none}.popup__button_disabled,.popup__button_disabled:hover{background-color:#e5e5e5}
 
+
+/*# sourceMappingURL=main.css.map*/
